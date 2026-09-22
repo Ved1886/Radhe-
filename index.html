@@ -51,6 +51,11 @@
         </div>
         <div class="container">
             <div class="hero-content">
+                <div class="hero-live-badge reveal delay-1">
+                    <span class="pulse-dot"></span>
+                    <span>Interactive 3D Structural Simulator Available Below</span>
+                    <a href="#studio" class="badge-link">Launch Studio <i class="fas fa-arrow-down"></i></a>
+                </div>
                 <span class="section-label reveal delay-1">PEB &amp; CONVENTIONAL STRUCTURE SOLUTIONS</span>
                 <h1 class="reveal delay-2">WE BUILD <span class="highlight">STRONGER TOMORROWS</span></h1>
                 <p class="reveal delay-3">PEB &amp; Conventional Structure | Heavy Fabrication | Industrial Buildings | Warehouses | Turnkey Solutions. Engineered with millimeter precision for maximum durability and rapid execution.</p>
@@ -310,6 +315,47 @@
                         <h4>End-to-End Execution</h4>
                         <p>Complete in-house capability from design to erection, providing single-window accountability for your project.</p>
                     </div>
+                </div>
+            </div>
+
+            <!-- Interactive CAD to Reality Inspection Slider -->
+            <div class="blueprint-reality-showcase reveal mt-5">
+                <div class="showcase-header text-center mb-4">
+                    <span class="badge-tech"><i class="fas fa-microchip"></i> IN-HOUSE 3D DETAILING VERIFICATION</span>
+                    <h3 class="mt-2">Tekla 3D Detailing vs. As-Built Steel Reality</h3>
+                    <p class="text-muted">Drag the interactive slider below to inspect how millimeter-precision CAD detailing matches 100% with the completed erected structure.</p>
+                </div>
+
+                <div class="comparison-slider" id="teklaSlider" style="--pos: 50%;">
+                    <!-- Real Finished Structure (Base Layer) -->
+                    <div class="comparison-layer layer-real">
+                        <img src="assets/photo-peb-ankleshwar.jpg" alt="Completed Pre-Engineered Building Ankleshwar">
+                        <span class="layer-badge badge-real"><i class="fas fa-check-circle"></i> As-Built Steel Reality (Ankleshwar)</span>
+                    </div>
+
+                    <!-- CAD Blueprint Wireframe (Overlay Layer with clip-path) -->
+                    <div class="comparison-layer layer-blueprint" id="blueprintLayer">
+                        <img src="assets/photo-peb-ankleshwar.jpg" alt="Tekla 3D Detailing Model" class="blueprint-filter">
+                        <div class="blueprint-grid-overlay"></div>
+                        <div class="cad-hud-elements">
+                            <span class="cad-tag cad-tag-1"><i class="fas fa-drafting-compass"></i> TEKLA LOD-400 // FRAME 08-B</span>
+                            <span class="cad-tag cad-tag-2"><i class="fas fa-ruler-combined"></i> CLEAR SPAN: 42.500 m</span>
+                            <span class="cad-tag cad-tag-3"><i class="fas fa-bolt"></i> HIGH-TENSILE 8.8 BOLTED HAUNCH: PASS</span>
+                        </div>
+                        <span class="layer-badge badge-cad"><i class="fas fa-cube"></i> Tekla 3D Digital Model</span>
+                    </div>
+
+                    <!-- Draggable Handle Bar -->
+                    <div class="slider-handle" id="sliderHandle">
+                        <div class="handle-line"></div>
+                        <div class="handle-button" aria-label="Drag to compare CAD with Reality">
+                            <i class="fas fa-arrows-alt-h"></i>
+                        </div>
+                        <div class="handle-line"></div>
+                    </div>
+                </div>
+                <div class="slider-caption text-center mt-3">
+                    <span class="text-muted"><i class="fas fa-mouse-pointer"></i> Drag slider left / right to inspect structural tolerance</span>
                 </div>
             </div>
         </div>
@@ -815,31 +861,210 @@
         </div>
     </section>
 
-    <!-- 12. BOTTOM LEAD CAPTURE -->
-    <section class="section">
+    <!-- 12. RADHE STRUCTURAL STUDIO: INTERACTIVE PEB & INDUSTRIAL SHED SIMULATOR -->
+    <section class="section section-dark structural-studio-section" id="studio">
         <div class="container">
-            <div class="quick-quote reveal">
-                <div class="text-center mb-4">
-                    <h2>Get a Quick Quote for Your Project</h2>
-                    <p style="color:rgba(255,255,255,.7);">Share your requirements and our engineering team will provide a detailed estimation within 24 hours.</p>
+            <div class="text-center reveal mb-5">
+                <span class="section-label">INTERACTIVE ENGINEERING SUITE</span>
+                <h2 class="section-title text-white">Radhe Structural Studio</h2>
+                <p class="section-subtitle text-light">Simulate your industrial facility in real-time. Test span widths, eave heights, and crane tonnages to generate live engineering blueprints, estimated steel tonnage, and project timelines.</p>
+            </div>
+
+            <div class="studio-container reveal">
+                <div class="studio-grid">
+                    <!-- Left: Control Console -->
+                    <div class="studio-controls-card">
+                        <div class="controls-header">
+                            <h4><i class="fas fa-sliders-h"></i> Structure Parameters</h4>
+                            <span class="cad-live-status"><span class="pulse-dot"></span> LIVE CAD ENGINE</span>
+                        </div>
+
+                        <!-- 1. Structure Archetype Selector -->
+                        <div class="control-group">
+                            <label class="control-label">Structural Frame Archetype</label>
+                            <div class="archetype-selector" id="archetypeSelector">
+                                <button type="button" class="archetype-btn active" data-type="peb">
+                                    <i class="fas fa-warehouse"></i>
+                                    <span>PEB Clear-Span</span>
+                                    <small>Gable Portal</small>
+                                </button>
+                                <button type="button" class="archetype-btn" data-type="round">
+                                    <i class="fas fa-archway"></i>
+                                    <span>Round Shed</span>
+                                    <small>Curved Arch</small>
+                                </button>
+                                <button type="button" class="archetype-btn" data-type="crane">
+                                    <i class="fas fa-industry"></i>
+                                    <span>Heavy Crane</span>
+                                    <small>50MT Workshop</small>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 2. Span Width Slider -->
+                        <div class="control-group">
+                            <div class="control-header-flex">
+                                <label class="control-label">Clear Span (Width)</label>
+                                <span class="control-val-badge" id="spanValBadge">36.0 m <small>(118 ft)</small></span>
+                            </div>
+                            <input type="range" class="studio-range" id="spanRange" min="15" max="60" value="36" step="1">
+                            <div class="range-labels">
+                                <span>15m (Compact)</span>
+                                <span>36m (Standard)</span>
+                                <span>60m (Mega Clear-Span)</span>
+                            </div>
+                        </div>
+
+                        <!-- 3. Bay Length Slider -->
+                        <div class="control-group">
+                            <div class="control-header-flex">
+                                <label class="control-label">Building Length (Depth)</label>
+                                <span class="control-val-badge" id="lengthValBadge">75.0 m <small>(246 ft)</small></span>
+                            </div>
+                            <input type="range" class="studio-range" id="lengthRange" min="30" max="150" value="75" step="5">
+                            <div class="range-labels">
+                                <span>30m (5 Bays)</span>
+                                <span>75m (10 Bays)</span>
+                                <span>150m (Logistics Hub)</span>
+                            </div>
+                        </div>
+
+                        <!-- 4. Eave Height Slider -->
+                        <div class="control-group">
+                            <div class="control-header-flex">
+                                <label class="control-label">Eave Height (Clearance)</label>
+                                <span class="control-val-badge" id="eaveValBadge">9.5 m <small>(31 ft)</small></span>
+                            </div>
+                            <input type="range" class="studio-range" id="eaveRange" min="6" max="14" value="9.5" step="0.5">
+                            <div class="range-labels">
+                                <span>6m (Low Bay)</span>
+                                <span>9.5m (Standard Eave)</span>
+                                <span>14m (High Clearance)</span>
+                            </div>
+                        </div>
+
+                        <!-- 5. Overhead Crane Capacity -->
+                        <div class="control-group">
+                            <label class="control-label">Overhead EOT Crane</label>
+                            <div class="pill-selector" id="craneSelector">
+                                <button type="button" class="pill-btn" data-crane="0">None</button>
+                                <button type="button" class="pill-btn active" data-crane="10">10 MT</button>
+                                <button type="button" class="pill-btn" data-crane="25">25 MT</button>
+                                <button type="button" class="pill-btn" data-crane="50">50 MT Heavy</button>
+                            </div>
+                        </div>
+
+                        <!-- 6. Cladding System -->
+                        <div class="control-group mb-0">
+                            <label class="control-label">Roof &amp; Wall Cladding System</label>
+                            <div class="pill-selector" id="claddingSelector">
+                                <button type="button" class="pill-btn active" data-cladding="standing-seam">Standing Seam</button>
+                                <button type="button" class="pill-btn" data-cladding="sandwich-puf">Insulated PUF</button>
+                                <button type="button" class="pill-btn" data-cladding="galvalume">Color Galvalume</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Live CAD Blueprint Canvas Viewport -->
+                    <div class="studio-viewport-card">
+                        <div class="viewport-cad-hud">
+                            <div class="hud-left">
+                                <span class="hud-mono-badge"><i class="fas fa-terminal"></i> TEKLA 2D ELEVATION</span>
+                                <span class="hud-dim-summary" id="hudDimSummary">36.0m × 75.0m × 9.5m</span>
+                            </div>
+                            <div class="hud-right">
+                                <span class="hud-tag"><i class="fas fa-check"></i> IS 800:2007</span>
+                                <span class="hud-tag"><i class="fas fa-wind"></i> 44 m/s (Zone IV)</span>
+                            </div>
+                        </div>
+
+                        <!-- Blueprint Canvas Wrapper -->
+                        <div class="canvas-wrapper">
+                            <canvas id="studioCanvas" width="800" height="480"></canvas>
+                            <div class="canvas-grid-bg"></div>
+                        </div>
+
+                        <div class="viewport-footer">
+                            <span class="viewport-hint"><i class="fas fa-info-circle"></i> Live schematic displays moment portal frame, tapered flanges, crane gantry beams, and dynamic dimension arrows.</span>
+                        </div>
+                    </div>
                 </div>
-                <form data-validate="true">
+
+                <!-- Studio Dynamic Metrics Strip -->
+                <div class="studio-metrics-strip">
+                    <div class="metric-card">
+                        <div class="metric-icon"><i class="fas fa-vector-square"></i></div>
+                        <div class="metric-content">
+                            <div class="metric-val-row">
+                                <span class="metric-num" id="calcArea">29,063</span>
+                                <span class="metric-unit">Sq.Ft.</span>
+                            </div>
+                            <span class="metric-label">Covered Plot Footprint</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon"><i class="fas fa-weight-hanging"></i></div>
+                        <div class="metric-content">
+                            <div class="metric-val-row">
+                                <span class="metric-num" id="calcSteel">~141</span>
+                                <span class="metric-unit">Metric Tons</span>
+                            </div>
+                            <span class="metric-label">Estimated Structural Steel</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div class="metric-content">
+                            <div class="metric-val-row">
+                                <span class="metric-num" id="calcDays">~52</span>
+                                <span class="metric-unit">Working Days</span>
+                            </div>
+                            <span class="metric-label">Fabrication &amp; Site Erection</span>
+                        </div>
+                    </div>
+                    <div class="metric-card metric-action-card">
+                        <button type="button" class="btn btn-accent btn-block" id="btnApplySpecs">
+                            <span>Get Detailed BOQ for This Config</span>
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. BOTTOM LEAD CAPTURE (INSTANT BOQ ESTIMATION) -->
+    <section class="section" id="quoteSection">
+        <div class="container">
+            <div class="quick-quote reveal" id="quickQuoteCard">
+                <div class="text-center mb-4">
+                    <h2>Get a Detailed Engineering Estimation</h2>
+                    <p style="color:rgba(255,255,255,.7);">Share your project details and our structural engineering desk will provide a complete 3D concept &amp; itemized BOQ estimation within 24 hours.</p>
+                </div>
+
+                <div class="configured-specs-alert" id="configuredSpecsAlert" style="display:none;">
+                    <i class="fas fa-check-circle"></i>
+                    <span><strong>Pre-filled from Structural Studio:</strong> <span id="configuredSpecsSummary">36m × 75m PEB | Est. 141 MT Steel</span></span>
+                </div>
+
+                <form data-validate="true" id="quoteForm">
+                    <input type="hidden" id="quoteNotes" name="quoteNotes" value="Standard Inquiry">
                     <div class="form-grid">
                         <div class="form-group">
                             <label class="form-label">Building Length (m)</label>
-                            <input type="number" class="form-input" placeholder="e.g. 100" required>
+                            <input type="number" id="quoteLength" class="form-input" placeholder="e.g. 75" value="75" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Building Width (m)</label>
-                            <input type="number" class="form-input" placeholder="e.g. 50" required>
+                            <input type="number" id="quoteWidth" class="form-input" placeholder="e.g. 36" value="36" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Eave Height (m)</label>
-                            <input type="number" class="form-input" placeholder="e.g. 10" required>
+                            <input type="number" id="quoteHeight" step="0.5" class="form-input" placeholder="e.g. 9.5" value="9.5" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Project Location</label>
-                            <input type="text" class="form-input" placeholder="City, State" required>
+                            <input type="text" class="form-input" placeholder="City, State (e.g. Surat, Ankleshwar)" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Phone Number</label>
@@ -850,7 +1075,7 @@
                             <input type="email" class="form-input" placeholder="name@company.com" required>
                         </div>
                         <div class="form-group full text-center">
-                            <button type="submit" class="btn btn-accent btn-lg">Request Free Estimation <i class="fas fa-arrow-right"></i></button>
+                            <button type="submit" class="btn btn-accent btn-lg">Request Itemized BOQ &amp; Quote <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </form>
