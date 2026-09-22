@@ -133,13 +133,31 @@ p { margin-bottom: 1rem; color: var(--text-light); }
   position: relative;
 }
 .section-dark {
-  background: var(--primary);
+  background:
+    linear-gradient(135deg, rgba(15,26,46,.98), rgba(26,39,68,.96) 55%, rgba(20,48,73,.98));
   color: var(--white);
+  position: relative;
+  overflow: hidden;
 }
+.section-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+.section-dark > .container { position: relative; z-index: 1; }
 .section-dark h2, .section-dark h3, .section-dark h4 { color:var(--white); }
 .section-dark p { color:rgba(255,255,255,.75); }
 .section-dark .section-title::after { background:linear-gradient(90deg,var(--accent),var(--accent-light)); }
-.section-gray { background:var(--off-white); }
+.section-gray {
+  background: linear-gradient(180deg, #f7f9fb 0%, #eef3f7 100%);
+  border-top: 1px solid rgba(26,39,68,.06);
+  border-bottom: 1px solid rgba(26,39,68,.06);
+}
 
 /* Diagonal Section Divider */
 .diagonal-top {

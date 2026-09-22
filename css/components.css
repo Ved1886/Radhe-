@@ -826,7 +826,8 @@
    Radhe Infrastructure Bespoke Asymmetric Showcase
    ============================================================ */
 .radhe-verticals-section {
-  background: var(--off-white);
+  background: linear-gradient(180deg, #f7f9fb 0%, #eef3f7 100%);
+  border-bottom: 1px solid rgba(26,39,68,.06);
   padding: 100px 0;
   position: relative;
   overflow: hidden;
