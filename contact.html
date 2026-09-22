@@ -58,7 +58,7 @@
   </section>
 
   <!-- CONTACT LAYOUT -->
-  <section class="section" style="padding: 70px 0; background-color: #f8fafc;">
+  <section class="section section-gray blueprint-bg" style="padding: 80px 0;">
     <div class="container">
       <div class="contact-layout">
         
@@ -141,7 +141,6 @@
             <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             <a href="https://wa.me/919512841105" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
           </div>
         </aside>
@@ -158,7 +157,8 @@
             <!-- Step 1: Client Information -->
             <div class="form-step-group">
               <div class="form-step-title">
-                <i class="fas fa-user-shield"></i> 01 / Client &amp; Enterprise Details
+                <span class="step-badge">01</span>
+                <span>Client &amp; Enterprise Details</span>
               </div>
               <div class="form-grid">
                 <div class="form-group">
@@ -191,7 +191,8 @@
             <!-- Step 2: Structural Technical Scope -->
             <div class="form-step-group">
               <div class="form-step-title">
-                <i class="fas fa-cubes"></i> 02 / Structural Scope &amp; Parameters
+                <span class="step-badge">02</span>
+                <span>Structural Scope &amp; Parameters</span>
               </div>
               <div class="form-grid">
                 <div class="form-group">
@@ -216,14 +217,17 @@
                 <div class="form-group full">
                   <label class="form-label">Estimated Building Dimensions (Meters)</label>
                   <div class="dimensions-3col">
-                    <div>
-                      <input type="number" id="buildingLength" name="buildingLength" placeholder="Length (m)">
+                    <div class="dimension-input-wrap">
+                      <input type="number" id="buildingLength" name="buildingLength" placeholder="Length">
+                      <span class="dimension-unit-tag">m</span>
                     </div>
-                    <div>
-                      <input type="number" id="buildingWidth" name="buildingWidth" placeholder="Width / Span (m)">
+                    <div class="dimension-input-wrap">
+                      <input type="number" id="buildingWidth" name="buildingWidth" placeholder="Width / Span">
+                      <span class="dimension-unit-tag">m</span>
                     </div>
-                    <div>
-                      <input type="number" id="eaveHeight" name="eaveHeight" placeholder="Clear Eave Height (m)">
+                    <div class="dimension-input-wrap">
+                      <input type="number" id="eaveHeight" name="eaveHeight" placeholder="Clear Height">
+                      <span class="dimension-unit-tag">m</span>
                     </div>
                   </div>
                 </div>
@@ -244,7 +248,8 @@
             <!-- Step 3: Specifications & Drawing Upload -->
             <div class="form-step-group">
               <div class="form-step-title">
-                <i class="fas fa-drafting-compass"></i> 03 / Custom Notes &amp; CAD Drawing Upload
+                <span class="step-badge">03</span>
+                <span>Custom Notes &amp; CAD Drawing Upload</span>
               </div>
               <div class="form-group">
                 <label class="form-label" for="additionalRequirements">Project Specifications &amp; Technical Notes</label>
@@ -279,11 +284,11 @@
               </div>
               <div class="rfq-guarantee-item">
                 <i class="fas fa-stopwatch"></i>
-                <span>24-Hour Engineered Turnaround</span>
+                <span>24-Hour Turnaround</span>
               </div>
               <div class="rfq-guarantee-item">
                 <i class="fas fa-drafting-compass"></i>
-                <span>Tekla 3D Feasibility Included</span>
+                <span>Tekla 3D Included</span>
               </div>
             </div>
 

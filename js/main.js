@@ -558,49 +558,91 @@ document.addEventListener('DOMContentLoaded', () => {
       // Overhead Crane & Gantry Girder (if crane > 0)
       if (state.crane > 0) {
         const craneBracketY = groundY - (frameHeight * 0.65);
-        const bracketW = 20;
+        const bracketW = state.crane === 50 ? 28 : state.crane === 25 ? 24 : 20;
+        const beamThickness = state.crane === 50 ? 8 : state.crane === 25 ? 6 : 4.5;
 
         // Left Crane Bracket & Runway
         ctx.fillStyle = '#eab308';
-        ctx.fillRect(startX + 4, craneBracketY, bracketW, 8);
+        ctx.fillRect(startX + 4, craneBracketY, bracketW, 9);
         // Right Crane Bracket & Runway
-        ctx.fillRect(endX - 4 - bracketW, craneBracketY, bracketW, 8);
+        ctx.fillRect(endX - 4 - bracketW, craneBracketY, bracketW, 9);
 
-        // Crane Bridge Beam
+        // Crane Bridge Beam (Double girder for 50MT, solid for others)
         const bridgeX1 = startX + 4 + bracketW;
         const bridgeX2 = endX - 4 - bracketW;
-        ctx.strokeStyle = '#eab308';
-        ctx.lineWidth = 4;
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = beamThickness;
         ctx.beginPath();
-        ctx.moveTo(bridgeX1, craneBracketY + 3);
-        ctx.lineTo(bridgeX2, craneBracketY + 3);
+        ctx.moveTo(bridgeX1, craneBracketY + 4);
+        ctx.lineTo(bridgeX2, craneBracketY + 4);
         ctx.stroke();
 
-        // Crane Trolley & Hoist Hook
-        const trolleyX = midX - 25;
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(trolleyX - 12, craneBracketY - 4, 24, 8);
+        if (state.crane >= 25) {
+          // Bottom flange for heavy box girder
+          ctx.strokeStyle = 'rgba(253, 224, 71, 0.7)';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(bridgeX1, craneBracketY + 4 + (beamThickness / 2));
+          ctx.lineTo(bridgeX2, craneBracketY + 4 + (beamThickness / 2));
+          ctx.stroke();
+        }
 
-        // Cable & Hook
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
-        ctx.lineWidth = 1.5;
+        // Crane Trolley / Crab unit
+        const trolleyW = state.crane === 50 ? 34 : state.crane === 25 ? 28 : 22;
+        const trolleyX = midX - 25;
+        ctx.fillStyle = '#eab308';
+        ctx.fillRect(trolleyX - (trolleyW / 2), craneBracketY - 6, trolleyW, 10);
+        ctx.strokeStyle = '#78350f';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(trolleyX - (trolleyW / 2), craneBracketY - 6, trolleyW, 10);
+
+        // Wire Rope Cable & Heavy Hook Block
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.lineWidth = state.crane === 50 ? 2.5 : state.crane === 25 ? 2 : 1.5;
         ctx.beginPath();
         ctx.moveTo(trolleyX, craneBracketY + 4);
-        ctx.lineTo(trolleyX, craneBracketY + 24);
+        ctx.lineTo(trolleyX, craneBracketY + 28);
         ctx.stroke();
 
-        // Hook
+        // Heavy Pulley Block & Hook
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(trolleyX - 5, craneBracketY + 28, 10, 8);
         ctx.strokeStyle = '#d4a853';
-        ctx.lineWidth = 2.5;
+        ctx.lineWidth = state.crane === 50 ? 3.5 : state.crane === 25 ? 2.8 : 2;
         ctx.beginPath();
-        ctx.arc(trolleyX, craneBracketY + 28, 4.5, 0, Math.PI);
+        ctx.arc(trolleyX, craneBracketY + 39, 5, 0, Math.PI);
         ctx.stroke();
 
-        // Crane Load Label
+        // Crane Load Specification Label
         ctx.fillStyle = '#fef08a';
-        ctx.font = 'bold 9px monospace';
+        ctx.font = 'bold 9.5px monospace';
         ctx.textAlign = 'left';
-        ctx.fillText(`EOT CRANE ${state.crane} MT`, bridgeX1 + 10, craneBracketY - 6);
+        ctx.fillText(`▲ EOT CRANE SYSTEM: ${state.crane} MT CAPACITY`, bridgeX1 + 10, craneBracketY - 10);
+      }
+
+      // Cladding Surface Indicator Overlays (Standing Seam / PUF / Galvalume)
+      if (state.cladding) {
+        ctx.save();
+        const cladColor = state.cladding === 'standing-seam' ? 'rgba(56, 189, 248, 0.4)' :
+                          state.cladding === 'sandwich-puf' ? 'rgba(212, 168, 83, 0.45)' : 'rgba(148, 163, 184, 0.4)';
+        ctx.strokeStyle = cladColor;
+        ctx.lineWidth = state.cladding === 'sandwich-puf' ? 2 : 1;
+        ctx.setLineDash(state.cladding === 'sandwich-puf' ? [4, 4] : [2, 2]);
+
+        // Left wall cladding profile line
+        ctx.beginPath();
+        ctx.moveTo(startX - 10, groundY);
+        ctx.lineTo(startX - 10, eaveY);
+        ctx.stroke();
+
+        // Right wall cladding profile line
+        ctx.beginPath();
+        ctx.moveTo(endX + 10, groundY);
+        ctx.lineTo(endX + 10, eaveY);
+        ctx.stroke();
+
+        ctx.setLineDash([]);
+        ctx.restore();
       }
 
       // Moment Connection Pulse Nodes
@@ -796,13 +838,13 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.stroke();
       });
 
-      // 4. Crane Runway Girder in 3D (if crane > 0)
+      // 4. Crane Runway Girder & Crane Bridge in 3D (if crane > 0)
       if (state.crane > 0) {
         const craneH = state.eave * 0.65;
         ctx.strokeStyle = '#eab308';
-        ctx.lineWidth = 2.5;
+        ctx.lineWidth = state.crane === 50 ? 3.5 : state.crane === 25 ? 2.8 : 2;
 
-        // Left crane runway
+        // Left crane runway girder
         ctx.beginPath();
         for (let b = 0; b <= numBays; b++) {
           const z = (b / numBays) * state.length;
@@ -812,7 +854,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         ctx.stroke();
 
-        // Right crane runway
+        // Right crane runway girder
         ctx.beginPath();
         for (let b = 0; b <= numBays; b++) {
           const z = (b / numBays) * state.length;
@@ -820,6 +862,32 @@ document.addEventListener('DOMContentLoaded', () => {
           if (b === 0) ctx.moveTo(cpR.x, cpR.y);
           else ctx.lineTo(cpR.x, cpR.y);
         }
+        ctx.stroke();
+
+        // 3D Moving Crane Bridge at Mid-Bay
+        const midZ = state.length * 0.45;
+        const bridgeL = iso(-halfSpan + 1.2, craneH + 0.3, midZ);
+        const bridgeR = iso(halfSpan - 1.2, craneH + 0.3, midZ);
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = state.crane === 50 ? 4 : 3;
+        ctx.beginPath();
+        ctx.moveTo(bridgeL.x, bridgeL.y);
+        ctx.lineTo(bridgeR.x, bridgeR.y);
+        ctx.stroke();
+
+        // Crane Trolley / Hook in 3D
+        const trolley3D = iso(-2, craneH + 0.3, midZ);
+        ctx.fillStyle = '#eab308';
+        ctx.beginPath();
+        ctx.arc(trolley3D.x, trolley3D.y, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Drop hook
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(trolley3D.x, trolley3D.y);
+        ctx.lineTo(trolley3D.x, trolley3D.y + 12);
         ctx.stroke();
       }
 

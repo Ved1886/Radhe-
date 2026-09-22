@@ -1,0 +1,700 @@
+/* ============================================================
+
+   RADHE INFRASTRUCTURE — Industrial Benchmark Telemetry Deck
+
+   Telemetry Grid, 3D Gold Metallic Counters, Live Stats Bar
+
+   ============================================================ */
+
+/* ---------- 8. Industrial Benchmark Telemetry Deck ---------- */
+.industrial-telemetry-section {
+  position: relative;
+  z-index: 10;
+  padding: 55px 0 75px;
+  background: #0a1322;
+  background-image: 
+    radial-gradient(circle at 50% -10%, rgba(212,168,83,0.18) 0%, transparent 65%),
+    linear-gradient(rgba(212,168,83,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,168,83,0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 36px 36px, 36px 36px;
+  border-top: 1px solid rgba(212,168,83,0.3);
+  border-bottom: 1px solid rgba(212,168,83,0.15);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+}
+
+/* Telemetry Command Header */
+.telemetry-hud-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 30px;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed rgba(212,168,83,0.22);
+}
+.hud-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(15,26,46,0.85);
+  border: 1px solid rgba(212,168,83,0.3);
+  padding: 7px 16px;
+  border-radius: 30px;
+  box-shadow: 0 0 16px rgba(212,168,83,0.12);
+}
+.hud-status-radar {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10b981;
+  position: relative;
+  display: inline-block;
+}
+.hud-status-radar::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid #10b981;
+  animation: radarPulse 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+@keyframes radarPulse {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.hud-status-text {
+  font-family: 'Courier New', monospace, var(--font-heading);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.hud-specs-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hud-spec-item {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.72);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 5px 12px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  letter-spacing: 0.5px;
+}
+.hud-spec-item i {
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+
+/* 4-Card Telemetry Grid */
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+/* Individual Telemetry Card */
+.telemetry-card {
+  position: relative;
+  background: linear-gradient(165deg, rgba(20,33,56,0.85) 0%, rgba(10,18,32,0.95) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212,168,83,0.22);
+  border-radius: 14px;
+  padding: 26px 20px 22px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.telemetry-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.5;
+  transition: all 0.4s ease;
+}
+.telemetry-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(212,168,83,0.55);
+  box-shadow: 0 22px 45px rgba(0,0,0,0.5), 0 0 30px rgba(212,168,83,0.18);
+}
+.telemetry-card:hover::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+/* CAD Crosshairs */
+.card-crosshair {
+  position: absolute;
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(212,168,83,0.32);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+.ch-tl { top: 7px; left: 9px; }
+.ch-tr { top: 7px; right: 9px; }
+.ch-bl { bottom: 7px; left: 9px; }
+.ch-br { bottom: 7px; right: 9px; }
+.telemetry-card:hover .card-crosshair {
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(212,168,83,0.9);
+}
+
+/* Card Top Bar */
+.telemetry-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.card-ref-code {
+  font-family: 'Courier New', monospace, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 1px;
+}
+.card-chip-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(212,168,83,0.12);
+  border: 1px solid rgba(212,168,83,0.28);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.card-chip-tag.highlight {
+  color: #38bdf8;
+  background: rgba(56,189,248,0.12);
+  border-color: rgba(56,189,248,0.35);
+}
+
+/* Metric Row */
+.telemetry-metric-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 16px;
+}
+.telemetry-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(212,168,83,0.22) 0%, rgba(15,26,46,0.9) 100%);
+  border: 1px solid rgba(212,168,83,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  box-shadow: inset 0 0 14px rgba(212,168,83,0.15), 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+.telemetry-card:hover .telemetry-icon-box {
+  transform: scale(1.08) rotate(3deg);
+  color: #fff;
+  border-color: var(--accent);
+}
+.telemetry-icon-box.highlight-icon {
+  border-color: rgba(56,189,248,0.4);
+  color: #38bdf8;
+  background: linear-gradient(135deg, rgba(56,189,248,0.2) 0%, rgba(15,26,46,0.9) 100%);
+}
+.telemetry-number-wrap {
+  flex: 1;
+}
+.telemetry-card .stat-number {
+  font-family: var(--font-heading);
+  font-size: 2.35rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(180deg, #ffffff 0%, #fae8b2 45%, #d4a853 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(212,168,83,0.35));
+  margin-bottom: 4px;
+}
+.telemetry-card.highlight-card .stat-number {
+  background: linear-gradient(180deg, #ffffff 0%, #bae6fd 45%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(56,189,248,0.35));
+}
+.stat-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.25;
+}
+
+/* Caliber Progress Meter */
+.telemetry-caliber-wrap {
+  margin-bottom: 14px;
+}
+.caliber-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.caliber-val {
+  color: var(--accent);
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+}
+.caliber-val.highlight {
+  color: #38bdf8;
+}
+.caliber-track {
+  position: relative;
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.caliber-fill {
+  position: relative;
+  height: 100%;
+  background: linear-gradient(90deg, #b8923f 0%, var(--accent) 60%, #fde047 100%);
+  border-radius: 4px;
+  transition: width 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px rgba(212,168,83,0.5);
+}
+.caliber-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: caliberShimmer 2.5s infinite;
+}
+@keyframes caliberShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.caliber-fill.highlight-fill {
+  background: linear-gradient(90deg, #0284c7 0%, #38bdf8 60%, #7dd3fc 100%);
+  box-shadow: 0 0 10px rgba(56,189,248,0.5);
+}
+.caliber-ticks {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25%;
+  pointer-events: none;
+}
+.caliber-ticks span {
+  width: 1px;
+  height: 100%;
+  background: rgba(0,0,0,0.35);
+}
+
+/* Telemetry Description */
+.telemetry-desc {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.72);
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+/* Footer Badge */
+.telemetry-footer-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.3s ease;
+}
+.telemetry-footer-badge i {
+  color: var(--accent);
+}
+.telemetry-footer-badge.highlight-badge i {
+  color: #38bdf8;
+}
+.telemetry-card:hover .telemetry-footer-badge {
+  background: rgba(212,168,83,0.1);
+  border-color: rgba(212,168,83,0.25);
+}
+
+/* Highlight Card Style */
+.telemetry-card.highlight-card {
+  border-color: rgba(56,189,248,0.3);
+}
+.telemetry-card.highlight-card:hover {
+  border-color: rgba(56,189,248,0.65);
+  box-shadow: 0 22px 45px rgba(0,0,0,0.5), 0 0 30px rgba(56,189,248,0.2);
+}
+.telemetry-card.highlight-card::before {
+  background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+}
+
+/* ---------- Global Modernized Stats Bar (Used across inner pages) ---------- */
+.stats-bar {
+  background: transparent;
+  padding: 0;
+  position: relative;
+  z-index: 10;
+  margin-top: -35px;
+}
+.stats-bar .container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+  box-shadow: none;
+  border: none;
+}
+.stat-item {
+  background: linear-gradient(165deg, rgba(20,32,54,0.92) 0%, rgba(10,18,32,0.96) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212,168,83,0.22);
+  border-radius: var(--radius);
+  padding: 28px 18px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.6;
+  transition: all 0.35s ease;
+}
+.stat-item:hover {
+  transform: translateY(-5px);
+  background: linear-gradient(165deg, rgba(25,40,68,0.95) 0%, rgba(13,22,40,0.98) 100%);
+  border-color: rgba(212,168,83,0.5);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45), 0 0 25px rgba(212,168,83,0.15);
+}
+.stat-item:hover::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+.stat-item:not(:last-child)::after {
+  display: none;
+}
+.stat-icon,
+.stat-item > i {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(212,168,83,0.2) 0%, rgba(15,26,46,0.8) 100%);
+  border: 1px solid rgba(212,168,83,0.3);
+  color: var(--accent);
+  font-size: 1.3rem;
+  box-shadow: inset 0 0 12px rgba(212,168,83,0.15);
+  transition: transform 0.3s ease;
+}
+.stat-item:hover .stat-icon,
+.stat-item:hover > i {
+  transform: scale(1.1) rotate(4deg);
+  color: #fff;
+  border-color: var(--accent);
+}
+.stat-number {
+  font-family: var(--font-heading);
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: var(--accent);
+  background: linear-gradient(180deg, #ffffff 0%, #fae8b2 45%, #d4a853 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(212,168,83,0.3));
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label,
+.stat-item p {
+  font-size: 0.86rem;
+  color: rgba(255,255,255,0.78);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Precision Engineering Milestone Telemetry Matrix (projects & services)
+   ========================================================================== */
+.stats-grid,
+.stats-matrix-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 26px !important;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+@media (max-width: 992px) {
+  .stats-grid,
+  .stats-matrix-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+}
+@media (max-width: 576px) {
+  .stats-grid,
+  .stats-matrix-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+.milestone-pillar,
+.stat-card-modern {
+  background: linear-gradient(168deg, #13223d 0%, #0c1628 100%);
+  border: 1px solid rgba(212, 168, 83, 0.32);
+  border-radius: 20px;
+  padding: 34px 22px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 38px rgba(5, 12, 24, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: all 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.milestone-pillar::before,
+.stat-card-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  background: linear-gradient(90deg, transparent, #d4a853 30%, #ffd978 50%, #d4a853 70%, transparent);
+  transition: all 0.35s ease;
+}
+.milestone-pillar:hover,
+.stat-card-modern:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212, 168, 83, 0.7);
+  box-shadow: 0 24px 50px rgba(5, 12, 24, 0.75), 0 0 32px rgba(212, 168, 83, 0.22);
+}
+.milestone-pillar:hover::before,
+.stat-card-modern:hover::before {
+  height: 5px;
+  background: linear-gradient(90deg, #d4a853, #fff1b8, #d4a853);
+}
+
+/* Telemetry Micro Status Pill */
+.pillar-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(212, 168, 83, 0.1);
+  color: #e6c37a;
+  border: 1px solid rgba(212, 168, 83, 0.25);
+  margin-bottom: 18px;
+}
+.pillar-status-chip .pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d4a853;
+  box-shadow: 0 0 8px #d4a853;
+  animation: pulseGold 2s infinite ease-in-out;
+}
+@keyframes pulseGold {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Dual-Ring Glowing Icon Pod */
+.pillar-icon-pod,
+.stat-icon-pod {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  background: radial-gradient(circle at center, rgba(212,168,83,0.22) 0%, rgba(15,26,46,0.9) 70%);
+  border: 2px solid rgba(212, 168, 83, 0.4);
+  box-shadow: 0 0 20px rgba(212, 168, 83, 0.2), inset 0 0 15px rgba(212, 168, 83, 0.15);
+  transition: all 0.38s ease;
+}
+.pillar-icon-pod::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px dashed rgba(212, 168, 83, 0.35);
+  transition: transform 0.6s ease;
+}
+.milestone-pillar:hover .pillar-icon-pod,
+.stat-card-modern:hover .stat-icon-pod {
+  transform: scale(1.08);
+  border-color: #d4a853;
+  box-shadow: 0 0 30px rgba(212, 168, 83, 0.4);
+}
+.milestone-pillar:hover .pillar-icon-pod::after {
+  transform: rotate(90deg);
+}
+.pillar-icon-pod i,
+.stat-icon-pod i {
+  font-size: 1.65rem;
+  color: #f7d58a;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+  transition: color 0.3s ease;
+}
+.milestone-pillar:hover .pillar-icon-pod i,
+.stat-card-modern:hover .stat-icon-pod i {
+  color: #ffffff;
+}
+
+/* 3D Gold Metallic Counter Typography */
+.pillar-number,
+.stat-number-modern {
+  font-family: var(--font-heading);
+  font-size: 2.9rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(180deg, #FFFFFF 0%, #fae8b2 45%, #d4a853 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 3px 10px rgba(212, 168, 83, 0.35));
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+/* High-Contrast White Title */
+.milestone-pillar h4,
+.stat-card-modern h4 {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #ffffff !important;
+  margin: 0 0 12px;
+  font-family: var(--font-heading);
+  letter-spacing: 0.2px;
+}
+
+/* Milestone Tag Chip */
+.pillar-tag-pill,
+.stat-tag-pill {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: rgba(212, 168, 83, 0.12);
+  color: #fae4ab;
+  border: 1px solid rgba(212, 168, 83, 0.28);
+  display: inline-block;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+.milestone-pillar:hover .pillar-tag-pill,
+.stat-card-modern:hover .stat-tag-pill {
+  background: rgba(212, 168, 83, 0.22);
+  color: #ffffff;
+  border-color: #d4a853;
+  box-shadow: 0 0 12px rgba(212, 168, 83, 0.2);
+}
+
+/* Animated Caliber Gauge Strip */
+.pillar-gauge-track {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 4px;
+}
+.pillar-gauge-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #d4a853, #ffe399);
+  box-shadow: 0 0 10px rgba(212, 168, 83, 0.5);
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* CAD Corner Crosshairs */
+.cad-crosshair-tl,
+.cad-crosshair-br {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  opacity: 0.45;
+}
+.cad-crosshair-tl {
+  top: 10px;
+  left: 10px;
+  border-top: 1.5px solid #d4a853;
+  border-left: 1.5px solid #d4a853;
+}
+.cad-crosshair-br {
+  bottom: 10px;
+  right: 10px;
+  border-bottom: 1.5px solid #d4a853;
+  border-right: 1.5px solid #d4a853;
+}

@@ -1,0 +1,855 @@
+/* ============================================================
+
+   RADHE INFRASTRUCTURE — Contact & Engineering RFQ Portal System
+
+   Forms, RFQ Portal, Quick Quote Engine, CAD Upload
+
+   ============================================================ */
+
+/* ---------- 19. Forms ---------- */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.form-group {
+  position: relative;
+  margin-bottom: 4px;
+}
+.form-group.full { grid-column:1/-1; }
+.form-label {
+  display: block;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: .95rem;
+  color: var(--text);
+  background: var(--white);
+  transition: var(--transition-fast);
+  outline: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(212,168,83,.15);
+}
+.form-textarea { resize:vertical; min-height:130px; }
+.form-input::placeholder, .form-textarea::placeholder { color:var(--gray-400); }
+
+/* File Upload */
+.file-upload {
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--radius);
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.file-upload:hover { border-color:var(--accent); background:rgba(212,168,83,.03); }
+.file-upload i { font-size:2rem; color:var(--accent); margin-bottom:10px; }
+.file-upload p { margin:0; font-size:.9rem; }
+.file-upload input[type="file"] { display:none; }
+
+/* ==========================================================================
+   Modern Contact Page & Engineering RFQ Portal System (Elevated Industrial UI)
+   ========================================================================== */
+
+/* Contact Page Layout Container */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 36px;
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .contact-layout {
+    grid-template-columns: 340px 1fr;
+    gap: 28px;
+  }
+}
+@media (max-width: 900px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+/* Contact Sidebar Pro */
+.contact-sidebar,
+.contact-sidebar-pro {
+  background: linear-gradient(165deg, #0d1728 0%, #15243e 50%, #0a1120 100%);
+  border: 1px solid rgba(212, 168, 83, 0.22);
+  border-radius: 24px;
+  padding: 36px 30px;
+  color: var(--white);
+  box-shadow: 0 20px 45px -10px rgba(10, 20, 40, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-sidebar-pro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #d4a853, #f59e0b, #d4a853);
+}
+
+.contact-sidebar-pro h3 {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+  font-family: var(--font-heading);
+}
+
+.contact-sidebar-pro .sidebar-desc {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Hotline Direct Action Banner inside Sidebar */
+.hotline-banner-card {
+  background: linear-gradient(135deg, rgba(212, 168, 83, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(212, 168, 83, 0.35);
+  border-radius: 16px;
+  padding: 22px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.hotline-banner-card::after {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, rgba(212, 168, 83, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hotline-banner-card .hotline-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #fae4ab;
+  margin-bottom: 8px;
+}
+
+.hotline-banner-card .hotline-number {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: block;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  font-family: var(--font-heading);
+  transition: all 0.3s ease;
+}
+.hotline-banner-card .hotline-number:hover {
+  color: var(--accent);
+  transform: scale(1.02);
+}
+
+.hotline-action-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.hotline-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hotline-btn-call {
+  background: linear-gradient(135deg, #d4a853 0%, #b88228 100%);
+  color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.hotline-btn-call:hover {
+  background: linear-gradient(135deg, #f7d58a 0%, #d4a853 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(212, 168, 83, 0.45);
+}
+
+.hotline-btn-wa {
+  background: linear-gradient(135deg, #25D366 0%, #1ea952 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.hotline-btn-wa:hover {
+  background: linear-gradient(135deg, #2ae771 0%, #25D366 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
+}
+
+/* Contact Info Items */
+.contact-info-items {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-info-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+.contact-info-item:hover {
+  background: rgba(212, 168, 83, 0.08);
+  border-color: rgba(212, 168, 83, 0.28);
+  transform: translateX(4px);
+}
+
+.contact-info-item .info-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(212, 168, 83, 0.2) 0%, rgba(212, 168, 83, 0.05) 100%);
+  border: 1px solid rgba(212, 168, 83, 0.35);
+  color: #f7d58a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contact-info-item .info-body h4 {
+  color: #f7d58a;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+}
+
+.contact-info-item .info-body p {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  margin: 0 0 6px;
+}
+
+.contact-info-item .info-body a {
+  color: #ffffff;
+  font-size: 0.86rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+}
+.contact-info-item .info-body a:hover {
+  color: var(--accent);
+}
+
+/* Live Operational Badge */
+.live-ops-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #6ee7b7;
+  padding: 10px 16px;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.12);
+}
+.live-ops-badge .live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  animation: pulseGreen 1.8s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+/* Contact Social Channel Pills */
+.contact-social-strip {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.contact-social-strip a {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.contact-social-strip a:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0f172a;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(212, 168, 83, 0.4);
+}
+
+/* ==========================================================================
+   Engineering RFQ Portal Card & Inputs (Modern Industrial Card)
+   ========================================================================== */
+.contact-form-container,
+.rfq-portal-card {
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 24px 60px -15px rgba(15, 23, 42, 0.09), 0 0 0 1px rgba(226, 232, 240, 0.6);
+  padding: 48px 46px;
+  position: relative;
+  overflow: hidden;
+}
+
+.rfq-portal-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #1e3a8a 0%, #d4a853 50%, #f59e0b 100%);
+}
+
+@media (max-width: 768px) {
+  .contact-form-container,
+  .rfq-portal-card {
+    padding: 32px 22px;
+    border-radius: 20px;
+  }
+}
+
+.rfq-portal-header {
+  margin-bottom: 34px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 24px;
+}
+.rfq-portal-header .rfq-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  background: rgba(212, 168, 83, 0.12);
+  color: #b88228;
+  border: 1px solid rgba(212, 168, 83, 0.3);
+  margin-bottom: 12px;
+}
+.rfq-portal-header h2 {
+  font-size: clamp(1.65rem, 2.5vw, 2.15rem);
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+  font-family: var(--font-heading);
+}
+.rfq-portal-header p {
+  color: #64748b;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 680px;
+}
+
+/* Form Steps Grouping - Elegant Card Sections */
+.form-step-group {
+  background: #f8fafc;
+  border: 1px solid #edf2f7;
+  border-radius: 16px;
+  padding: 24px 26px;
+  margin-bottom: 24px;
+  transition: all 0.25s ease;
+}
+.form-step-group:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.form-step-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: #0f172a;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.form-step-title .step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #d4a853 0%, #b88228 100%);
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 800;
+  box-shadow: 0 3px 8px rgba(212, 168, 83, 0.35);
+}
+
+/* Inputs & Form Group Styling */
+.form-group {
+  margin-bottom: 18px;
+}
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 8px;
+  letter-spacing: 0.2px;
+}
+.form-label .req {
+  color: #ef4444;
+  margin-left: 2px;
+}
+
+.form-input,
+.form-select,
+.form-textarea,
+.rfq-form input[type="text"],
+.rfq-form input[type="email"],
+.rfq-form input[type="tel"],
+.rfq-form input[type="number"],
+.rfq-form input[type="date"],
+.rfq-form select,
+.rfq-form textarea {
+  width: 100%;
+  padding: 13px 18px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 0.94rem;
+  color: #0f172a;
+  background-color: #ffffff;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-body);
+  outline: none;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover,
+.rfq-form input:hover,
+.rfq-form select:hover,
+.rfq-form textarea:hover {
+  border-color: #94a3b8;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus,
+.rfq-form input:focus,
+.rfq-form select:focus,
+.rfq-form textarea:focus {
+  border-color: #d4a853;
+  box-shadow: 0 0 0 4px rgba(212, 168, 83, 0.18), 0 1px 3px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+}
+
+.rfq-form select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 42px;
+}
+
+.rfq-form textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.55;
+}
+
+/* Dimensions 3-col strip with Unit Labels */
+.dimensions-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.dimension-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.dimension-input-wrap input {
+  padding-right: 38px !important;
+}
+.dimension-unit-tag {
+  position: absolute;
+  right: 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #94a3b8;
+  pointer-events: none;
+}
+@media (max-width: 600px) {
+  .dimensions-3col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Blueprint CAD Upload Bay - High Tech Studio Style */
+.blueprint-upload-bay {
+  border: 2px dashed rgba(212, 168, 83, 0.5);
+  background: linear-gradient(135deg, rgba(212, 168, 83, 0.04) 0%, rgba(30, 58, 138, 0.02) 100%);
+  border-radius: 16px;
+  padding: 30px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+.blueprint-upload-bay:hover {
+  border-color: #d4a853;
+  background: linear-gradient(135deg, rgba(212, 168, 83, 0.08) 0%, rgba(30, 58, 138, 0.04) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 168, 83, 0.12);
+}
+.blueprint-upload-bay .upload-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(212, 168, 83, 0.2) 0%, rgba(212, 168, 83, 0.06) 100%);
+  border: 1px solid rgba(212, 168, 83, 0.4);
+  color: #b88228;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin: 0 auto 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(212, 168, 83, 0.18);
+}
+.blueprint-upload-bay:hover .upload-icon {
+  background: linear-gradient(135deg, #d4a853 0%, #b88228 100%);
+  color: #ffffff;
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 168, 83, 0.35);
+}
+.blueprint-upload-bay p {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 6px;
+}
+.blueprint-upload-bay .file-support-tag {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 500;
+}
+.blueprint-upload-bay input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* Submit Button & Trust Bar */
+.btn-rfq-submit {
+  width: 100%;
+  padding: 17px 32px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #d4a853 0%, #c4963e 50%, #b88228 100%);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 10px 28px rgba(212, 168, 83, 0.4);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+.btn-rfq-submit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transition: left 0.6s ease;
+}
+.btn-rfq-submit:hover::before {
+  left: 100%;
+}
+.btn-rfq-submit:hover {
+  background: linear-gradient(135deg, #e0b45d 0%, #d4a853 50%, #c4963e 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(212, 168, 83, 0.5);
+}
+.btn-rfq-submit i {
+  font-size: 1.15rem;
+  transition: transform 0.3s ease;
+}
+.btn-rfq-submit:hover i {
+  transform: translateX(5px) translateY(-2px);
+}
+
+.rfq-guarantees-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+@media (max-width: 640px) {
+  .rfq-guarantees-strip {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+.rfq-guarantee-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+  background: #f8fafc;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #edf2f7;
+}
+.rfq-guarantee-item i {
+  color: #10b981;
+  font-size: 0.9rem;
+}
+
+/* Quick Quote Form (Homepage) - Premium Industrial UI */
+.quick-quote {
+  background: linear-gradient(145deg, #111e38 0%, #1a2744 55%, #0f172a 100%);
+  border-radius: 24px;
+  padding: 56px 48px;
+  color: var(--white);
+  box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+.quick-quote::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-light), transparent);
+}
+.quick-quote-header {
+  max-width: 780px;
+  margin: 0 auto 36px;
+}
+.quick-quote h2 {
+  color: var(--white);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 800;
+  margin: 14px 0 12px;
+  letter-spacing: -0.02em;
+}
+.quick-quote-subtitle {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.quick-quote-trust-badges {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.quick-quote-trust-badges span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-light);
+  letter-spacing: 0.02em;
+}
+.quick-quote-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 28px;
+  margin-bottom: 32px;
+}
+@media (max-width: 768px) {
+  .quick-quote { padding: 36px 20px; border-radius: 18px; }
+  .quick-quote-grid { grid-template-columns: 1fr; gap: 18px; }
+  .quick-quote-trust-badges { gap: 10px; }
+}
+.quick-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.quick-form-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.quick-form-label i {
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+.input-with-unit,
+.input-icon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.quick-quote .form-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  padding: 13px 18px;
+  color: var(--white);
+  font-size: 0.96rem;
+  font-family: var(--font-body);
+  transition: all 0.25s ease;
+  outline: none;
+}
+.quick-quote .form-input.with-icon {
+  padding-left: 44px;
+}
+.field-icon {
+  position: absolute;
+  left: 16px;
+  color: var(--accent);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+.input-unit {
+  position: absolute;
+  right: 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px 8px;
+  border-radius: 6px;
+  pointer-events: none;
+}
+.quick-quote .form-input::placeholder {
+  color: rgba(255, 255, 255, 0.38);
+}
+.quick-quote .form-input:focus {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.11);
+  box-shadow: 0 0 0 4px rgba(212, 168, 83, 0.22);
+}
+.quick-quote-submit-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.quick-submit-btn {
+  border-radius: 9999px;
+  padding: 16px 42px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: 0 10px 25px -5px rgba(212, 168, 83, 0.45);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.quick-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -4px rgba(212, 168, 83, 0.6);
+}
+.quick-privacy-note {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.82rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
