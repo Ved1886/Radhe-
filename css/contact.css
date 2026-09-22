@@ -62,16 +62,73 @@
    Modern Contact Page & Engineering RFQ Portal System (Elevated Industrial UI)
    ========================================================================== */
 
+/* Top Trust & Response Guarantee Bar */
+.contact-trust-ribbon {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 20px 24px;
+  margin-bottom: 36px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+.ribbon-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ribbon-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(212, 168, 83, 0.18) 0%, rgba(212, 168, 83, 0.05) 100%);
+  border: 1px solid rgba(212, 168, 83, 0.35);
+  color: #b88228;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+.ribbon-item strong {
+  display: block;
+  font-size: 0.94rem;
+  color: #0f172a;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.ribbon-item span {
+  display: block;
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+@media (max-width: 992px) {
+  .contact-trust-ribbon {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+@media (max-width: 576px) {
+  .contact-trust-ribbon {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 18px;
+  }
+}
+
 /* Contact Page Layout Container */
 .contact-layout {
   display: grid;
-  grid-template-columns: 380px 1fr;
+  grid-template-columns: 390px 1fr;
   gap: 36px;
   align-items: start;
 }
 @media (max-width: 1100px) {
   .contact-layout {
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: 350px 1fr;
     gap: 28px;
   }
 }
@@ -85,15 +142,15 @@
 /* Contact Sidebar Pro */
 .contact-sidebar,
 .contact-sidebar-pro {
-  background: linear-gradient(165deg, #0d1728 0%, #15243e 50%, #0a1120 100%);
-  border: 1px solid rgba(212, 168, 83, 0.22);
+  background: linear-gradient(165deg, #0a1324 0%, #111e38 50%, #080f1d 100%);
+  border: 1px solid rgba(212, 168, 83, 0.28);
   border-radius: 24px;
-  padding: 36px 30px;
+  padding: 34px 28px;
   color: var(--white);
-  box-shadow: 0 20px 45px -10px rgba(10, 20, 40, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  box-shadow: 0 24px 50px -10px rgba(10, 20, 40, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 24px;
   position: relative;
   overflow: hidden;
 }
@@ -108,9 +165,25 @@
   background: linear-gradient(90deg, #d4a853, #f59e0b, #d4a853);
 }
 
+.sidebar-header-box .sidebar-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #f7d58a;
+  background: rgba(212, 168, 83, 0.12);
+  border: 1px solid rgba(212, 168, 83, 0.25);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
 .contact-sidebar-pro h3 {
   color: #ffffff;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 800;
   margin-bottom: 8px;
   letter-spacing: -0.01em;
@@ -118,22 +191,22 @@
 }
 
 .contact-sidebar-pro .sidebar-desc {
-  font-size: 0.92rem;
-  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
   line-height: 1.55;
   margin: 0;
 }
 
 /* Hotline Direct Action Banner inside Sidebar */
 .hotline-banner-card {
-  background: linear-gradient(135deg, rgba(212, 168, 83, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%);
-  border: 1px solid rgba(212, 168, 83, 0.35);
+  background: linear-gradient(135deg, rgba(212, 168, 83, 0.14) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(212, 168, 83, 0.38);
   border-radius: 16px;
   padding: 22px 20px;
   text-align: center;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
 .hotline-banner-card::after {
@@ -143,7 +216,7 @@
   right: -30px;
   width: 90px;
   height: 90px;
-  background: radial-gradient(circle, rgba(212, 168, 83, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(212, 168, 83, 0.3) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -151,20 +224,20 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   color: #fae4ab;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .hotline-banner-card .hotline-number {
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #ffffff;
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 4px;
   letter-spacing: 0.5px;
   font-family: var(--font-heading);
   transition: all 0.3s ease;
@@ -172,6 +245,12 @@
 .hotline-banner-card .hotline-number:hover {
   color: var(--accent);
   transform: scale(1.02);
+}
+.hotline-sub {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 14px;
+  font-weight: 500;
 }
 
 .hotline-action-btns {
@@ -254,25 +333,73 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.info-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
 .contact-info-item .info-body h4 {
   color: #f7d58a;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 800;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.6px;
   text-transform: uppercase;
-  margin: 0 0 4px;
+  margin: 0;
+}
+.info-badge-hq {
+  background: rgba(212, 168, 83, 0.2);
+  color: #fae4ab;
+  border: 1px solid rgba(212, 168, 83, 0.4);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.info-badge-plant {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.info-badge-hub {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
 }
 
 .contact-info-item .info-body p {
   color: rgba(255, 255, 255, 0.82);
-  font-size: 0.86rem;
+  font-size: 0.85rem;
   line-height: 1.45;
   margin: 0 0 6px;
 }
 
+.info-link-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.info-sep {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.8rem;
+}
+.info-spec-highlight {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+}
+
 .contact-info-item .info-body a {
   color: #ffffff;
-  font-size: 0.86rem;
+  font-size: 0.85rem;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -282,29 +409,47 @@
 .contact-info-item .info-body a:hover {
   color: var(--accent);
 }
+.email-link {
+  color: #fae4ab !important;
+  font-size: 0.92rem !important;
+}
+.email-subtext {
+  display: block;
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 3px;
+}
 
 /* Live Operational Badge */
 .live-ops-badge {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  gap: 12px;
   background: rgba(16, 185, 129, 0.12);
   border: 1px solid rgba(16, 185, 129, 0.3);
-  color: #6ee7b7;
-  padding: 10px 16px;
-  border-radius: 9999px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.3px;
+  color: #a7f3d0;
+  padding: 12px 16px;
+  border-radius: 14px;
   box-shadow: 0 4px 14px rgba(16, 185, 129, 0.12);
 }
+.live-ops-badge strong {
+  display: block;
+  font-size: 0.82rem;
+  color: #6ee7b7;
+  font-weight: 700;
+}
+.live-ops-badge span {
+  display: block;
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 2px;
+}
 .live-ops-badge .live-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #10b981;
-  box-shadow: 0 0 10px #10b981;
+  box-shadow: 0 0 12px #10b981;
   animation: pulseGreen 1.8s infinite ease-in-out;
   flex-shrink: 0;
 }
@@ -336,6 +481,92 @@
   color: #0f172a;
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 8px 20px rgba(212, 168, 83, 0.4);
+}
+
+/* Input with Icon Wrapper for modern crisp inputs */
+.input-with-icon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-field-icon {
+  position: absolute;
+  left: 16px;
+  color: #94a3b8;
+  font-size: 0.92rem;
+  pointer-events: none;
+  transition: color 0.25s ease;
+  z-index: 2;
+}
+.input-with-icon-wrap input.has-icon {
+  padding-left: 44px !important;
+}
+.input-with-icon-wrap input.has-icon:focus + .input-field-icon,
+.input-with-icon-wrap:focus-within .input-field-icon {
+  color: #d4a853;
+}
+
+/* Enhanced Form Step Title */
+.form-step-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.form-step-title .step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #d4a853 0%, #b88228 100%);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(212, 168, 83, 0.35);
+  flex-shrink: 0;
+}
+.form-step-title .step-name {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #0f172a;
+  line-height: 1.2;
+}
+.form-step-title .step-sub {
+  display: block;
+  font-size: 0.76rem;
+  color: #64748b;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-top: 2px;
+}
+
+.rfq-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.rfq-turnaround-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #047857;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 4px 12px;
+  border-radius: 9999px;
 }
 
 /* ==========================================================================
@@ -476,13 +707,13 @@
 .rfq-form select,
 .rfq-form textarea {
   width: 100%;
-  padding: 13px 18px;
-  border: 1.5px solid #cbd5e1;
+  padding: 13.5px 18px;
+  border: 1.5px solid #d1d5db;
   border-radius: 12px;
-  font-size: 0.94rem;
+  font-size: 0.95rem;
   color: #0f172a;
   background-color: #ffffff;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   font-family: var(--font-body);
   outline: none;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
@@ -494,7 +725,7 @@
 .rfq-form input:hover,
 .rfq-form select:hover,
 .rfq-form textarea:hover {
-  border-color: #94a3b8;
+  border-color: #9ca3af;
 }
 
 .form-input:focus,
@@ -504,7 +735,7 @@
 .rfq-form select:focus,
 .rfq-form textarea:focus {
   border-color: #d4a853;
-  box-shadow: 0 0 0 4px rgba(212, 168, 83, 0.18), 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 3.5px rgba(212, 168, 83, 0.22), 0 2px 4px rgba(0, 0, 0, 0.04);
   background-color: #ffffff;
 }
 
