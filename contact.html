@@ -1,22 +1,94 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us & Request a Quote - Radhe Infrastructure</title>
-  <meta name="description" content="Contact Radhe Infrastructure for high-quality Pre-Engineered Buildings (PEB), heavy steel fabrication, and industrial roofing solutions. Request a detailed quote today.">
-  <meta name="keywords" content="contact Radhe Infrastructure, PEB quotation, steel fabrication quote, industrial construction Gujarat, request a quote">
-  
-  <!-- Google Fonts: Montserrat & Open Sans -->
+  <title>Contact Us - Radhe Infrastructure | PEB &amp; Steel Structures Gujarat</title>
+  <meta name="description" content="Contact Radhe Infrastructure for Pre-Engineered Buildings, heavy steel fabrication, and industrial roofing. Offices in Surat, Ahmedabad and Ankleshwar.">
+  <meta name="keywords" content="contact Radhe Infrastructure, PEB quotation, steel fabrication Gujarat, industrial construction contact">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome 6 CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .contact-hero-mini{position:relative;min-height:280px;display:flex;align-items:center;background:linear-gradient(135deg,#07101f 0%,#0f1e38 60%,#1a2f50 100%);overflow:hidden}
+    .contact-hero-mini::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(212,168,83,.04) 40px,rgba(212,168,83,.04) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(212,168,83,.04) 40px,rgba(212,168,83,.04) 41px)}
+    .contact-hero-mini::after{content:'';position:absolute;right:-60px;top:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(212,168,83,.1) 0%,transparent 70%)}
+    .contact-hero-content{position:relative;z-index:2;padding:80px 0 70px}
+    .contact-hero-content .section-label{color:#fae4ab!important}
+    .contact-hero-content h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff;margin:10px 0 12px}
+    .contact-hero-content p{color:rgba(255,255,255,.75);font-size:1.05rem;max-width:540px}
+    .contact-main{padding:70px 0 80px;background:#f5f6f8}
+    .contact-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:start}
+    .contact-info-panel{display:flex;flex-direction:column;gap:18px}
+    .contact-info-intro{padding:26px 26px 22px;background:#fff;border-radius:14px;border-left:4px solid #d4a853;box-shadow:0 2px 20px rgba(0,0,0,.07)}
+    .contact-info-intro h2{font-size:1.3rem;font-weight:700;color:#0a1324;margin:0 0 10px}
+    .contact-info-intro p{color:#4b5563;font-size:.94rem;line-height:1.65;margin:0}
+    .contact-item-card{display:flex;align-items:flex-start;gap:16px;padding:20px 22px;background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(0,0,0,.06);transition:box-shadow .25s,transform .25s;text-decoration:none;color:inherit}
+    .contact-item-card:hover{box-shadow:0 6px 28px rgba(0,0,0,.11);transform:translateY(-2px)}
+    .contact-item-icon{width:44px;height:44px;min-width:44px;border-radius:10px;background:linear-gradient(135deg,#d4a853,#f0c96a);display:flex;align-items:center;justify-content:center;color:#07101f;font-size:1rem}
+    .contact-item-body strong{display:block;font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;margin-bottom:4px}
+    .contact-item-body span,.contact-item-body a{font-size:.96rem;font-weight:600;color:#0a1324;text-decoration:none;line-height:1.45;display:block}
+    .contact-item-body a:hover{color:#d4a853}
+    .contact-wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px 22px;background:#25D366;color:#fff;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;box-shadow:0 4px 18px rgba(37,211,102,.3);transition:background .2s,transform .2s}
+    .contact-wa-btn:hover{background:#1ebe5d;transform:translateY(-2px)}
+    .contact-wa-btn i{font-size:1.2rem}
+    .contact-form-panel{background:#fff;border-radius:16px;box-shadow:0 4px 32px rgba(0,0,0,.09);padding:36px 36px 32px}
+    .contact-form-panel h3{font-size:1.4rem;font-weight:800;color:#0a1324;margin:0 0 6px}
+    .contact-form-panel .form-sub{color:#6b7280;font-size:.93rem;margin:0 0 26px}
+    .cform-group{margin-bottom:18px}
+    .cform-label{display:block;font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#374151;margin-bottom:6px}
+    .cform-label .req{color:#d4a853}
+    .cform-input,.cform-select,.cform-textarea{width:100%;padding:12px 14px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:.95rem;font-family:inherit;color:#1f2937;background:#fafafa;transition:border-color .2s,box-shadow .2s;box-sizing:border-box}
+    .cform-input:focus,.cform-select:focus,.cform-textarea:focus{outline:none;border-color:#d4a853;box-shadow:0 0 0 3px rgba(212,168,83,.15);background:#fff}
+    .cform-textarea{min-height:110px;resize:vertical}
+    .cform-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .cform-submit{width:100%;padding:14px 24px;background:linear-gradient(135deg,#d4a853,#c89440);color:#07101f;border:none;border-radius:10px;font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 16px rgba(212,168,83,.35)}
+    .cform-submit:hover{background:linear-gradient(135deg,#e0b55c,#d4a853);transform:translateY(-1px);box-shadow:0 6px 24px rgba(212,168,83,.45)}
+    .cform-note{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:.82rem;color:#9ca3af}
+    .cform-note i{color:#d4a853}
+    .contact-offices{padding:60px 0 70px;background:#fff}
+    .offices-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+    .office-simple-card{border-radius:14px;border:1.5px solid #e5e7eb;overflow:hidden;transition:box-shadow .25s,transform .25s}
+    .office-simple-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.1);transform:translateY(-3px)}
+    .office-card-top{padding:22px 22px 16px}
+    .office-type-tag{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:14px}
+    .tag-gold{background:rgba(212,168,83,.12);color:#b8811c;border:1px solid rgba(212,168,83,.3)}
+    .tag-blue{background:rgba(10,19,36,.07);color:#1a2f50;border:1px solid rgba(10,19,36,.15)}
+    .tag-green{background:rgba(16,185,129,.1);color:#047857;border:1px solid rgba(16,185,129,.25)}
+    .office-icon-row{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+    .office-icon-circ{width:44px;height:44px;min-width:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem}
+    .icon-gold{background:linear-gradient(135deg,#d4a853,#f0c96a);color:#07101f}
+    .icon-blue{background:linear-gradient(135deg,#0a1324,#1a2f50);color:#d4a853}
+    .icon-green{background:linear-gradient(135deg,#059669,#10b981);color:#fff}
+    .office-icon-row h4{font-size:1rem;font-weight:700;color:#0a1324;margin:0 0 2px}
+    .office-icon-row span{font-size:.78rem;color:#9ca3af}
+    .office-detail-line{display:flex;align-items:flex-start;gap:10px;font-size:.87rem;color:#4b5563;margin-bottom:10px;line-height:1.5}
+    .office-detail-line i{margin-top:2px;color:#d4a853;font-size:.8rem;min-width:14px}
+    .office-detail-line a{color:#4b5563;text-decoration:none;font-weight:600}
+    .office-detail-line a:hover{color:#d4a853}
+    .office-card-btn-area{padding:14px 22px;border-top:1px solid #f3f4f6;background:#fafafa}
+    .office-cta-link{display:inline-flex;align-items:center;gap:8px;font-size:.87rem;font-weight:700;color:#0a1324;text-decoration:none;transition:color .2s}
+    .office-cta-link:hover{color:#d4a853}
+    .contact-map-section{padding:0 0 70px;background:#fff}
+    .map-wrap{border-radius:14px;overflow:hidden;box-shadow:0 4px 28px rgba(0,0,0,.1);border:1.5px solid #e5e7eb}
+    .map-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 22px;background:#0a1324;flex-wrap:wrap}
+    .map-header-left{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.85);font-size:.87rem}
+    .map-header-left i{color:#d4a853}
+    .map-open-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#d4a853;color:#07101f;border-radius:6px;font-size:.82rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .2s}
+    .map-open-btn:hover{background:#c89440}
+    .contact-cta-banner{padding:70px 0;background:linear-gradient(135deg,#07101f 0%,#0f1e38 100%);border-top:3px solid #d4a853;text-align:center}
+    .contact-cta-banner h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:#fff;margin:12px 0 10px}
+    .contact-cta-banner p{color:rgba(255,255,255,.8);font-size:1rem;max-width:580px;margin:0 auto 30px}
+    .cta-btn-row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+    .btn-call{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#d4a853;color:#07101f;border-radius:10px;font-weight:700;font-size:1rem;text-decoration:none;transition:background .2s,transform .2s}
+    .btn-call:hover{background:#c89440;transform:translateY(-2px)}
+    .btn-whatsapp{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#25D366;color:#fff;border-radius:10px;font-weight:700;font-size:1rem;text-decoration:none;box-shadow:0 4px 18px rgba(37,211,102,.3);transition:background .2s,transform .2s}
+    .btn-whatsapp:hover{background:#1ebe5d;transform:translateY(-2px)}
+    @media(max-width:900px){.contact-layout{grid-template-columns:1fr}.offices-3col{grid-template-columns:1fr}}
+    @media(max-width:600px){.cform-row{grid-template-columns:1fr}.contact-form-panel{padding:24px 20px}.map-header{flex-direction:column;align-items:flex-start}}
+  </style>
 </head>
 <body>
 
@@ -28,7 +100,7 @@
         <a href="index.html" class="nav-link">Home</a>
         <a href="about.html" class="nav-link">About Us</a>
         <div class="nav-dropdown">
-          <a href="services.html" class="nav-link">Services ▾</a>
+          <a href="services.html" class="nav-link">Services &#9662;</a>
           <div class="dropdown-content">
             <a href="service-peb.html"><i class="fas fa-warehouse"></i> Pre-Engineered Buildings</a>
             <a href="service-steel.html"><i class="fas fa-industry"></i> Heavy Steel Fabrication</a>
@@ -45,344 +117,119 @@
     </div>
   </header>
 
-  <!-- HERO-MINI -->
-  <section class="hero-mini" style="background-image: url('assets/photo-crane-facility.jpg');">
-    <div class="hero-mini-overlay"></div>
-    <div class="container">
-      <div class="hero-mini-content reveal">
-        <span class="section-label" style="color: #fae4ab !important; text-shadow: 0 2px 8px rgba(0,0,0,0.6);"><i class="fas fa-satellite-dish"></i> DIRECT STRUCTURAL ENGINEERING CONSULTATION</span>
-        <h1 class="hero-mini-title">Connect with Our Engineering Desk</h1>
-        <p>Submit your turnkey requirements or architectural CAD drawings for an accurate, engineered feasibility report and quotation within 24 hours.</p>
-      </div>
+  <!-- HERO -->
+  <section class="contact-hero-mini">
+    <div class="container contact-hero-content reveal">
+      <span class="section-label"><i class="fas fa-satellite-dish"></i> RADHE INFRASTRUCTURE</span>
+      <h1>Get In Touch</h1>
+      <p>Talk to our engineering team directly. We respond to every inquiry within 24 hours — Mon to Sat, 9 AM to 7 PM IST.</p>
     </div>
   </section>
 
-  <!-- CONTACT LAYOUT -->
-  <section class="section section-gray blueprint-bg" style="padding: 70px 0 90px;">
+  <!-- MAIN CONTACT SECTION -->
+  <section class="contact-main">
     <div class="container">
-      
-      <!-- Top Trust & Response Guarantee Bar -->
-      <div class="contact-trust-ribbon reveal">
-        <div class="ribbon-item">
-          <div class="ribbon-icon"><i class="fas fa-bolt"></i></div>
-          <div>
-            <strong>24-Hour SLA</strong>
-            <span>Detailed BOQ &amp; Cost Estimation</span>
-          </div>
-        </div>
-        <div class="ribbon-item">
-          <div class="ribbon-icon"><i class="fas fa-drafting-compass"></i></div>
-          <div>
-            <strong>Free 3D Concept</strong>
-            <span>Tekla BIM Framing Layout</span>
-          </div>
-        </div>
-        <div class="ribbon-item">
-          <div class="ribbon-icon"><i class="fas fa-certificate"></i></div>
-          <div>
-            <strong>IS 800:2007 &amp; ISO 9001</strong>
-            <span>Fully Code-Compliant Specs</span>
-          </div>
-        </div>
-        <div class="ribbon-item">
-          <div class="ribbon-icon"><i class="fas fa-user-shield"></i></div>
-          <div>
-            <strong>NDA Confidential</strong>
-            <span>100% Secure Project Data</span>
-          </div>
-        </div>
-      </div>
+      <div class="contact-layout">
 
-      <!-- HORIZONTAL DIRECT ENGINEERING DESK (Full Width Pro Deck) -->
-      <div class="contact-desk-horizontal reveal">
-        <div class="desk-hero-strip">
-          <div class="desk-intro">
-            <span class="sidebar-kicker"><i class="fas fa-shield-alt"></i> VERIFIED INDUSTRIAL EPC</span>
-            <h3>Direct Engineering Desk</h3>
-            <p>Connect directly with our senior structural consultants &amp; project directors for industrial PEB, heavy fabrication, and turnkey sheds across Gujarat:</p>
+        <!-- LEFT: Contact Info -->
+        <div class="contact-info-panel">
+          <div class="contact-info-intro reveal">
+            <h2>How Can We Help?</h2>
+            <p>Whether you need a quote for a PEB warehouse, have a technical question about structural steel, or want to visit one of our facilities — we are here to assist. Reach us by phone, email, or WhatsApp.</p>
           </div>
-          
-          <!-- Immediate Hotline Card (Horizontal Compact) -->
-          <div class="desk-hotline-card">
-            <span class="hotline-label"><i class="fas fa-phone-volume"></i> IMMEDIATE PROJECT HOTLINE</span>
-            <a href="tel:+919512841105" class="hotline-number">+91 95128 41105</a>
-            <p class="hotline-sub">Direct Line to Chief Project Engineer</p>
-            <div class="hotline-action-btns">
-              <a href="tel:+919512841105" class="hotline-action-btn hotline-btn-call"><i class="fas fa-phone-alt"></i> Call Now</a>
-              <a href="https://wa.me/919512841105" target="_blank" class="hotline-action-btn hotline-btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+
+          <a href="tel:+919512841105" class="contact-item-card reveal delay-1">
+            <div class="contact-item-icon"><i class="fas fa-phone-alt"></i></div>
+            <div class="contact-item-body">
+              <strong>Primary Hotline</strong>
+              <span>+91 95128 41105</span>
+              <span style="font-size:.82rem;font-weight:400;color:#9ca3af;margin-top:2px;">Mon to Sat · 9 AM to 7 PM IST</span>
             </div>
-          </div>
+          </a>
+
+          <a href="tel:+918980841105" class="contact-item-card reveal delay-1">
+            <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-item-body">
+              <strong>Plant &amp; Fabrication Desk</strong>
+              <span>+91 89808 41105</span>
+              <span style="font-size:.82rem;font-weight:400;color:#9ca3af;margin-top:2px;">Ahmedabad Facility</span>
+            </div>
+          </a>
+
+          <a href="mailto:info@radheinfra.com" class="contact-item-card reveal delay-2">
+            <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-item-body">
+              <strong>Email</strong>
+              <span>info@radheinfra.com</span>
+              <span style="font-size:.82rem;font-weight:400;color:#9ca3af;margin-top:2px;">We respond within 24 hours</span>
+            </div>
+          </a>
+
+          <a href="https://maps.google.com/?q=Samarpan+Business+Hub+Kamrej+Surat" target="_blank" class="contact-item-card reveal delay-2">
+            <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-item-body">
+              <strong>Corporate HQ — Surat</strong>
+              <span>Shop No. 35, Samarpan Business Hub, Nansad Road, Kamrej, Surat - 394180</span>
+            </div>
+          </a>
+
+          <a href="https://wa.me/919512841105" target="_blank" class="contact-wa-btn reveal delay-3">
+            <i class="fab fa-whatsapp"></i>
+            Chat with Us on WhatsApp
+          </a>
         </div>
 
-        <!-- 4 Horizontal Location & Contact Hubs Grid -->
-        <div class="desk-locations-grid">
-          <!-- Surat HQ -->
-          <div class="contact-info-item">
-            <div class="info-icon">
-              <i class="fas fa-building"></i>
-            </div>
-            <div class="info-body">
-              <div class="info-tag-row">
-                <h4>Surat HQ (Head Office)</h4>
-                <span class="info-badge-hq">HQ</span>
-              </div>
-              <p>Shop No. 35, Samarpan Business Hub, Near Dada Bhagwan Temple, Kamrej, Surat - 394180</p>
-              <div class="info-link-row">
-                <a href="tel:+919512841105"><i class="fas fa-phone-alt"></i> +91 95128 41105</a>
-                <span class="info-sep">&bull;</span>
-                <a href="https://maps.google.com/?q=Samarpan+Business+Hub+Kamrej+Surat" target="_blank"><i class="fas fa-location-dot"></i> Map</a>
-              </div>
-            </div>
-          </div>
+        <!-- RIGHT: Quick Inquiry Form -->
+        <div class="contact-form-panel reveal delay-1">
+          <h3>Send Us a Message</h3>
+          <p class="form-sub">Fill in the form and our team will call or email you back within one business day.</p>
 
-          <!-- Ahmedabad Plant -->
-          <div class="contact-info-item">
-            <div class="info-icon">
-              <i class="fas fa-industry"></i>
-            </div>
-            <div class="info-body">
-              <div class="info-tag-row">
-                <h4>Ahmedabad Plant</h4>
-                <span class="info-badge-plant">Plant</span>
-              </div>
-              <p>Vishala Supreme 438, SP Ring Road, Nikol, Ahmedabad - 380049</p>
-              <div class="info-link-row">
-                <a href="tel:+918980841105"><i class="fas fa-phone-alt"></i> +91 89808 41105</a>
-                <span class="info-sep">&bull;</span>
-                <span class="info-spec-highlight">50k Sq.Ft. Line</span>
-              </div>
-            </div>
-          </div>
+          <form action="https://formspree.io/f/mqaeekzz" method="POST" id="quickContactForm">
+            <input type="hidden" name="_subject" value="New Contact Inquiry - Radhe Infrastructure">
 
-          <!-- Ankleshwar Hub -->
-          <div class="contact-info-item">
-            <div class="info-icon">
-              <i class="fas fa-hard-hat"></i>
-            </div>
-            <div class="info-body">
-              <div class="info-tag-row">
-                <h4>Ankleshwar Hub</h4>
-                <span class="info-badge-hub">Field Hub</span>
+            <div class="cform-row">
+              <div class="cform-group">
+                <label class="cform-label" for="cName">Name <span class="req">*</span></label>
+                <input type="text" id="cName" name="name" class="cform-input" placeholder="Your full name" required>
               </div>
-              <p>GIDC Industrial Corridor, Ankleshwar, Gujarat - 393002</p>
-              <div class="info-link-row">
-                <a href="tel:+919879504466"><i class="fas fa-phone-alt"></i> +91 98795 04466</a>
-              </div>
-              <div class="info-link-row" style="margin-top:6px;">
-                <span class="info-spec-highlight"><i class="fas fa-hard-hat" style="margin-right:4px;font-size:0.7rem;opacity:0.8;"></i>Site Erection QA</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Email & Active Status -->
-          <div class="contact-info-item">
-            <div class="info-icon">
-              <i class="fas fa-envelope-open-text"></i>
-            </div>
-            <div class="info-body">
-              <div class="info-tag-row">
-                <h4>Inquiries &amp; Hours</h4>
-                <span class="info-badge-active"><span class="live-dot-mini"></span> Active</span>
-              </div>
-              <p><a href="mailto:info@radheinfra.com" class="email-link">info@radheinfra.com</a></p>
-              <span class="email-subtext">Mon &ndash; Sat: 9:00 AM &ndash; 7:00 PM IST</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Horizontal Bottom Social & Trust Strip -->
-        <div class="desk-footer-strip">
-          <div class="desk-live-status">
-            <span class="live-dot"></span>
-            <span>Engineering Office Operational &bull; Instant Response via Hotline &amp; WhatsApp</span>
-          </div>
-          <div class="contact-social-strip">
-            <a href="#" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://wa.me/919512841105" target="_blank" aria-label="WhatsApp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- RFQ Engineering Portal (Centered & Prominent) -->
-      <div class="rfq-portal-wrapper">
-        <div class="rfq-portal-card reveal-up delay-1">
-          <div class="rfq-portal-header">
-            <div class="rfq-header-top">
-              <span class="rfq-eyebrow"><i class="fas fa-file-contract"></i> PROJECT ESTIMATION PORTAL</span>
-              <span class="rfq-turnaround-pill"><i class="fas fa-clock"></i> 24H Turnaround Guarantee</span>
-            </div>
-            <h2>Request an Engineered BOQ &amp; Quotation</h2>
-            <p>Enter your structural dimensions and project specifications below. Our technical team will compute tonnage, span suitability, and deliver a transparent, itemized quote.</p>
-          </div>
-          
-          <form class="rfq-form" data-validate="true" action="https://formspree.io/f/mqaeekzz" method="POST">
-            <input type="hidden" name="_subject" value="New Engineering RFQ Submission - Radhe Infrastructure">
-            
-            <!-- Step 1: Client & Enterprise Details -->
-            <div class="form-step-group">
-              <div class="form-step-title">
-                <span class="step-badge">01</span>
-                <div>
-                  <span class="step-name">Client &amp; Enterprise Details</span>
-                  <span class="step-sub">Contact information for official estimate delivery</span>
-                </div>
-              </div>
-              <div class="form-grid">
-                <div class="form-group">
-                  <label class="form-label" for="fullName">Full Name <span class="req">*</span></label>
-                  <div class="input-with-icon-wrap">
-                    <i class="fas fa-user input-field-icon"></i>
-                    <input type="text" id="fullName" name="fullName" class="has-icon" placeholder="e.g. Rajesh Patel" required>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label class="form-label" for="companyName">Company / Enterprise Name</label>
-                  <div class="input-with-icon-wrap">
-                    <i class="fas fa-building input-field-icon"></i>
-                    <input type="text" id="companyName" name="companyName" class="has-icon" placeholder="e.g. Gujarat Industries Pvt Ltd">
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label class="form-label" for="emailAddress">Official Email Address <span class="req">*</span></label>
-                  <div class="input-with-icon-wrap">
-                    <i class="fas fa-envelope input-field-icon"></i>
-                    <input type="email" id="emailAddress" name="emailAddress" class="has-icon" placeholder="e.g. rajesh@company.com" required>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label class="form-label" for="phoneNumber">Phone / WhatsApp Number <span class="req">*</span></label>
-                  <div class="input-with-icon-wrap">
-                    <i class="fas fa-phone-alt input-field-icon"></i>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" class="has-icon" placeholder="e.g. +91 98765 43210" required>
-                  </div>
-                </div>
-                
-                <div class="form-group full">
-                  <label class="form-label" for="projectLocation">Project Site Location (City / GIDC / State) <span class="req">*</span></label>
-                  <div class="input-with-icon-wrap">
-                    <i class="fas fa-location-dot input-field-icon"></i>
-                    <input type="text" id="projectLocation" name="projectLocation" class="has-icon" placeholder="e.g. Dahej GIDC, Bharuch / Palsana, Surat" required>
-                  </div>
-                </div>
+              <div class="cform-group">
+                <label class="cform-label" for="cPhone">Phone <span class="req">*</span></label>
+                <input type="tel" id="cPhone" name="phone" class="cform-input" placeholder="+91 XXXXX XXXXX" required>
               </div>
             </div>
 
-            <!-- Step 2: Structural Technical Scope -->
-            <div class="form-step-group">
-              <div class="form-step-title">
-                <span class="step-badge">02</span>
-                <div>
-                  <span class="step-name">Structural Scope &amp; Parameters</span>
-                  <span class="step-sub">Building footprint, bay clearance, and crane specifications</span>
-                </div>
-              </div>
-              <div class="form-grid">
-                <div class="form-group">
-                  <label class="form-label" for="serviceType">Type of Structure / Service <span class="req">*</span></label>
-                  <select id="serviceType" name="serviceType" required>
-                    <option value="PEB Structure">Pre-Engineered Building (PEB)</option>
-                    <option value="Conventional Structures">Conventional Heavy Steel Structure</option>
-                    <option value="Industrial Warehouse">Industrial Warehouse &amp; Logistics Park</option>
-                    <option value="Heavy Fabrication">Heavy Steel Girder &amp; Beam Fabrication</option>
-                    <option value="Industrial Roofing">Standing Seam &amp; Industrial Roofing</option>
-                    <option value="Civil & Foundation">Civil Foundation &amp; Pedestal Work</option>
-                    <option value="Turnkey Solution">Comprehensive Turnkey Solution</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="targetDate">Target Groundbreaking / Start Date</label>
-                  <input type="date" id="targetDate" name="targetDate">
-                </div>
-
-                <!-- Building Dimensions 3-Col -->
-                <div class="form-group full">
-                  <label class="form-label">Estimated Building Dimensions (Meters)</label>
-                  <div class="dimensions-3col">
-                    <div class="dimension-input-wrap">
-                      <input type="number" id="buildingLength" name="buildingLength" placeholder="Length" min="5" step="1">
-                      <span class="dimension-unit-tag">m</span>
-                    </div>
-                    <div class="dimension-input-wrap">
-                      <input type="number" id="buildingWidth" name="buildingWidth" placeholder="Width / Span" min="5" step="1">
-                      <span class="dimension-unit-tag">m</span>
-                    </div>
-                    <div class="dimension-input-wrap">
-                      <input type="number" id="eaveHeight" name="eaveHeight" placeholder="Clear Eave" min="3" step="0.5">
-                      <span class="dimension-unit-tag">m</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group full">
-                  <label class="form-label" for="craneRequirement">Overhead EOT Crane Requirement</label>
-                  <select id="craneRequirement" name="craneRequirement">
-                    <option value="No">No Crane Requirement</option>
-                    <option value="Yes - 5 Ton">Yes - 5 Ton EOT Crane</option>
-                    <option value="Yes - 10 Ton">Yes - 10 Ton EOT Crane</option>
-                    <option value="Yes - 20 Ton">Yes - 20 Ton Heavy Duty Crane</option>
-                    <option value="Yes - 30+ Ton">Yes - 30+ Ton Heavy Industrial Gantry</option>
-                  </select>
-                </div>
-              </div>
+            <div class="cform-group">
+              <label class="cform-label" for="cEmail">Email Address</label>
+              <input type="email" id="cEmail" name="email" class="cform-input" placeholder="you@company.com">
             </div>
 
-            <!-- Step 3: Specifications & Drawing Upload -->
-            <div class="form-step-group">
-              <div class="form-step-title">
-                <span class="step-badge">03</span>
-                <div>
-                  <span class="step-name">Custom Notes &amp; CAD Drawing Upload</span>
-                  <span class="step-sub">Attach layout drawings or specify steel grades and coatings</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="additionalRequirements">Project Specifications &amp; Technical Notes</label>
-                <textarea id="additionalRequirements" name="additionalRequirements" placeholder="Mention steel grade preferences (e.g. IS 2062 E350/E250), clear-span requirements, mezzanine floors, cladding specs, or site constraints..."></textarea>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Upload Architectural Layout / CAD Drawing</label>
-                <div class="blueprint-upload-bay">
-                  <div class="upload-icon">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                  </div>
-                  <p>Click or drag files here to upload project plans</p>
-                  <span class="file-support-tag">Supported formats: PDF, DWG, DXF, STEP, ZIP &bull; Max 25MB</span>
-                  <input type="file" id="drawingUpload" name="drawingUpload">
-                </div>
-              </div>
+            <div class="cform-group">
+              <label class="cform-label" for="cService">Service of Interest</label>
+              <select id="cService" name="service" class="cform-select">
+                <option value="">— Select a service —</option>
+                <option>Pre-Engineered Building (PEB)</option>
+                <option>Heavy Steel Fabrication</option>
+                <option>Industrial Roofing</option>
+                <option>Civil &amp; Foundation Work</option>
+                <option>Turnkey Project</option>
+                <option>General Inquiry</option>
+              </select>
             </div>
 
-            <!-- Step 4: Submission & Guarantees -->
-            <div class="form-group full" style="margin-top: 10px;">
-              <button type="submit" class="btn-rfq-submit">
-                <span>Submit Requirement &amp; Request Estimation</span>
-                <i class="fas fa-paper-plane"></i>
-              </button>
-              <div class="form-status-container"></div>
+            <div class="cform-group">
+              <label class="cform-label" for="cMessage">Message</label>
+              <textarea id="cMessage" name="message" class="cform-textarea" placeholder="Briefly describe your project or question..."></textarea>
             </div>
 
-            <div class="rfq-guarantees-strip">
-              <div class="rfq-guarantee-item">
-                <i class="fas fa-shield-alt"></i>
-                <span>100% Confidential NDA Assured</span>
-              </div>
-              <div class="rfq-guarantee-item">
-                <i class="fas fa-stopwatch"></i>
-                <span>24-Hour Turnaround</span>
-              </div>
-              <div class="rfq-guarantee-item">
-                <i class="fas fa-drafting-compass"></i>
-                <span>Tekla 3D Included</span>
-              </div>
-            </div>
+            <button type="submit" class="cform-submit">
+              <i class="fas fa-paper-plane"></i>
+              Send Message
+            </button>
 
+            <div class="cform-note">
+              <i class="fas fa-shield-alt"></i>
+              Your information is kept strictly confidential.
+            </div>
           </form>
         </div>
 
@@ -390,148 +237,101 @@
     </div>
   </section>
 
-  <!-- OFFICES SECTION -->
-  <section class="section section-gray">
+  <!-- OFFICES -->
+  <section class="contact-offices">
     <div class="container">
-      <div class="section-title text-center reveal">
-        <span class="section-label">OUR LOCATIONS</span>
-        <h2 class="section-title centered">Strategic Offices &amp; Facilities</h2>
-        <p class="section-subtitle centered">Visit us or get in touch with our regional engineering teams across Gujarat.</p>
+      <div class="text-center reveal">
+        <span class="section-label"><i class="fas fa-map-marked-alt"></i> OUR LOCATIONS</span>
+        <h2 class="section-title" style="text-align:center;">Offices &amp; Facilities</h2>
+        <p class="section-subtitle" style="text-align:center;max-width:560px;margin:0 auto;">Three strategic locations serving industrial clients across Gujarat and pan-India.</p>
       </div>
-      
-      <div class="offices-grid">
+
+      <div class="offices-3col">
         <!-- Surat HQ -->
-        <div class="office-card reveal delay-1">
-          <div>
-            <span class="office-badge"><i class="fas fa-star"></i> Corporate Headquarters</span>
-            <div class="office-header-group">
-              <div class="office-icon-pod">
-                <i class="fas fa-building"></i>
-              </div>
-              <div class="office-header-text">
-                <h4>Surat Office</h4>
-                <span>Executive HQ &amp; Client Relations</span>
-              </div>
+        <div class="office-simple-card reveal delay-1">
+          <div class="office-card-top">
+            <span class="office-type-tag tag-gold"><i class="fas fa-star"></i> Corporate HQ</span>
+            <div class="office-icon-row">
+              <div class="office-icon-circ icon-gold"><i class="fas fa-building"></i></div>
+              <div><h4>Surat Office</h4><span>Executive HQ &amp; Client Relations</span></div>
             </div>
-            <div class="office-meta-tag">
-              <i class="fas fa-file-invoice"></i> GSTIN: 24ABNFR7519P1ZD
-            </div>
-            <div class="office-body-details">
-              <div class="office-address">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Shop No. 35, Samarpan Business Hub, Near Dada Bhagwan Temple, Nansad Road, Kamrej, Surat, Gujarat - 394180</span>
-              </div>
-              <div class="office-phone-row">
-                <i class="fas fa-phone-alt"></i>
-                <a href="tel:+919512841105">+91 95128 41105</a>
-              </div>
-            </div>
+            <div class="office-detail-line"><i class="fas fa-map-marker-alt"></i><span>Shop No. 35, Samarpan Business Hub, Nansad Road, Kamrej, Surat - 394180</span></div>
+            <div class="office-detail-line"><i class="fas fa-phone-alt"></i><a href="tel:+919512841105">+91 95128 41105</a></div>
+            <div class="office-detail-line"><i class="fas fa-file-invoice"></i><span>GSTIN: 24ABNFR7519P1ZD</span></div>
           </div>
-          <div class="office-card-footer">
-            <a href="tel:+919512841105" class="office-btn"><i class="fas fa-phone-alt"></i> Contact Surat HQ</a>
+          <div class="office-card-btn-area">
+            <a href="tel:+919512841105" class="office-cta-link"><i class="fas fa-phone-alt"></i> Call Surat HQ</a>
           </div>
         </div>
 
         <!-- Ahmedabad Plant -->
-        <div class="office-card reveal delay-2">
-          <div>
-            <span class="office-badge" style="background: rgba(26,39,68,0.08); color: var(--primary); border-color: rgba(26,39,68,0.2);"><i class="fas fa-industry"></i> Primary Fabrication Plant</span>
-            <div class="office-header-group">
-              <div class="office-icon-pod">
-                <i class="fas fa-cogs"></i>
-              </div>
-              <div class="office-header-text">
-                <h4>Ahmedabad Office &amp; Plant</h4>
-                <span>Heavy Fabrication &amp; CNC Line</span>
-              </div>
+        <div class="office-simple-card reveal delay-2">
+          <div class="office-card-top">
+            <span class="office-type-tag tag-blue"><i class="fas fa-industry"></i> Fabrication Plant</span>
+            <div class="office-icon-row">
+              <div class="office-icon-circ icon-blue"><i class="fas fa-cogs"></i></div>
+              <div><h4>Ahmedabad Plant</h4><span>Heavy Fabrication &amp; CNC Line</span></div>
             </div>
-            <div class="office-meta-tag" style="border-color: rgba(26,39,68,0.3); color: var(--primary);">
-              <i class="fas fa-tools"></i> 50,000+ Sq.Ft. Facility
-            </div>
-            <div class="office-body-details">
-              <div class="office-address">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Vishala Supreme 438, Sardar Patel Ring Road, Nikol, Ahmedabad, Gujarat - 380049</span>
-              </div>
-              <div class="office-phone-row">
-                <i class="fas fa-phone-alt"></i>
-                <a href="tel:+918980841105">+91 89808 41105</a>
-              </div>
-            </div>
+            <div class="office-detail-line"><i class="fas fa-map-marker-alt"></i><span>Vishala Supreme 438, Sardar Patel Ring Road, Nikol, Ahmedabad - 380049</span></div>
+            <div class="office-detail-line"><i class="fas fa-phone-alt"></i><a href="tel:+918980841105">+91 89808 41105</a></div>
+            <div class="office-detail-line"><i class="fas fa-tools"></i><span>50,000+ Sq.Ft. Fabrication Facility</span></div>
           </div>
-          <div class="office-card-footer">
-            <a href="tel:+918980841105" class="office-btn"><i class="fas fa-phone-alt"></i> Contact Plant Desk</a>
+          <div class="office-card-btn-area">
+            <a href="tel:+918980841105" class="office-cta-link"><i class="fas fa-phone-alt"></i> Call Plant Desk</a>
           </div>
         </div>
 
         <!-- Ankleshwar Hub -->
-        <div class="office-card reveal delay-3">
-          <div>
-            <span class="office-badge" style="background: rgba(16,185,129,0.1); color: #047857; border-color: rgba(16,185,129,0.25);"><i class="fas fa-hard-hat"></i> Regional Engineering Hub</span>
-            <div class="office-header-group">
-              <div class="office-icon-pod">
-                <i class="fas fa-city"></i>
-              </div>
-              <div class="office-header-text">
-                <h4>Ankleshwar Office</h4>
-                <span>Industrial Corridor Field Desk</span>
-              </div>
+        <div class="office-simple-card reveal delay-3">
+          <div class="office-card-top">
+            <span class="office-type-tag tag-green"><i class="fas fa-hard-hat"></i> Regional Hub</span>
+            <div class="office-icon-row">
+              <div class="office-icon-circ icon-green"><i class="fas fa-city"></i></div>
+              <div><h4>Ankleshwar Office</h4><span>Industrial Corridor Field Desk</span></div>
             </div>
-            <div class="office-meta-tag" style="border-color: rgba(16,185,129,0.35); color: #047857;">
-              <i class="fas fa-drafting-compass"></i> Site Erection &amp; QA Team
-            </div>
-            <div class="office-body-details">
-              <div class="office-address">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>GIDC Industrial Area Corridor, Ankleshwar, Bharuch District, Gujarat - 393002</span>
-              </div>
-              <div class="office-phone-row">
-                <i class="fas fa-phone-alt"></i>
-                <a href="tel:+919879504466">+91 98795 04466</a>
-              </div>
-            </div>
+            <div class="office-detail-line"><i class="fas fa-map-marker-alt"></i><span>GIDC Industrial Area Corridor, Ankleshwar, Bharuch District - 393002</span></div>
+            <div class="office-detail-line"><i class="fas fa-phone-alt"></i><a href="tel:+919879504466">+91 98795 04466</a></div>
+            <div class="office-detail-line"><i class="fas fa-drafting-compass"></i><span>Site Erection &amp; QA Team</span></div>
           </div>
-          <div class="office-card-footer">
-            <a href="tel:+919879504466" class="office-btn"><i class="fas fa-phone-alt"></i> Contact Field Hub</a>
+          <div class="office-card-btn-area">
+            <a href="tel:+919879504466" class="office-cta-link"><i class="fas fa-phone-alt"></i> Call Field Hub</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MAP SECTION -->
-  <section class="container reveal-up" style="margin-top: 30px; margin-bottom: 50px;">
-    <div class="map-container" style="margin: 0;">
-      <div class="map-header-bar">
-        <div class="map-header-title">
-          <i class="fas fa-map-marked-alt"></i>
-          <span>Corporate Headquarters &bull; Samarpan Business Hub, Nansad Road, Kamrej, Surat, Gujarat</span>
+  <!-- MAP -->
+  <section class="contact-map-section">
+    <div class="container">
+      <div class="map-wrap reveal">
+        <div class="map-header">
+          <div class="map-header-left">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Corporate HQ - Samarpan Business Hub, Nansad Road, Kamrej, Surat, Gujarat</span>
+          </div>
+          <a href="https://maps.google.com/?q=Samarpan+Business+Hub+Kamrej+Surat" target="_blank" class="map-open-btn">
+            <i class="fas fa-directions"></i> Open in Google Maps
+          </a>
         </div>
-        <a href="https://maps.google.com/?q=Samarpan+Business+Hub+Kamrej+Surat" target="_blank" class="map-link-btn">
-          <i class="fas fa-directions"></i> Open in Google Maps
-        </a>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119066.52982230402!2d72.7398947!3d21.1592001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04e59411d1563%3A0xfe4558290938b042!2sSurat%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          width="100%" height="380" style="border:0;display:block;"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
       </div>
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119066.52982230402!2d72.7398947!3d21.1592001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04e59411d1563%3A0xfe4558290938b042!2sSurat%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
-        width="100%" 
-        height="400" 
-        style="border:0;" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
     </div>
   </section>
 
   <!-- CTA BANNER -->
-  <section class="section section-dark text-center" style="background: linear-gradient(135deg, #0b1528 0%, #13223d 100%); border-top: 3px solid var(--accent); padding: 70px 0;">
+  <section class="contact-cta-banner">
     <div class="container reveal-up">
-      <span class="section-label" style="color: #fae4ab !important;"><i class="fas fa-comments"></i> FAST TECHNICAL RESPONSE</span>
-      <h2 style="color: #ffffff; font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: 800; margin: 12px 0;">Prefer an Instant Technical Consultation?</h2>
-      <p style="color: rgba(255,255,255,0.85); max-width: 650px; margin: 0 auto 30px; font-size: 1.05rem;">Our chief structural engineers are on standby to discuss your project spans, load metrics, and preliminary budgeting.</p>
-      <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-        <a href="tel:+919512841105" class="btn btn-accent" style="padding: 14px 28px; font-size: 1rem; font-weight: 700;"><i class="fas fa-phone-alt"></i> Call +91 95128 41105</a>
-        <a href="https://wa.me/919512841105" target="_blank" class="btn btn-outline" style="border: 2px solid #25D366; color: #ffffff; background-color: #25D366; padding: 14px 28px; font-size: 1rem; font-weight: 700; box-shadow: 0 4px 18px rgba(37,211,102,0.3);"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+      <span class="section-label" style="color:#fae4ab!important;"><i class="fas fa-comments"></i> FAST TECHNICAL RESPONSE</span>
+      <h2>Prefer to Talk to an Engineer Directly?</h2>
+      <p>Our structural engineering team is available to discuss project spans, load specifications, and preliminary budgeting - no obligation.</p>
+      <div class="cta-btn-row">
+        <a href="tel:+919512841105" class="btn-call"><i class="fas fa-phone-alt"></i> Call +91 95128 41105</a>
+        <a href="https://wa.me/919512841105" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
       </div>
     </div>
   </section>
@@ -585,14 +385,7 @@
     </div>
   </footer>
 
-  <!-- Back to Top -->
   <button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox"><span class="lightbox-close">&times;</span><img src="" alt=""></div>
-
-  <!-- Scripts -->
   <script src="js/main.js"></script>
-
 </body>
 </html>
