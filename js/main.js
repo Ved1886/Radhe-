@@ -54,6 +54,43 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach(el => revealObs.observe(el));
   }
 
+  /* ---------- 3b. Smart Video Lazy Loading & Playback Observer ---------- */
+  const lazyVideos = document.querySelectorAll('video[data-lazy-video]');
+  if (lazyVideos.length && 'IntersectionObserver' in window) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          // Load video source if not loaded yet
+          const source = video.querySelector('source[data-src]');
+          if (source) {
+            source.src = source.dataset.src;
+            source.removeAttribute('data-src');
+            video.load();
+          }
+          // Attempt playback safely
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              // Autoplay policy muted playback fallback
+              video.muted = true;
+            });
+          }
+        } else {
+          // Pause when outside viewport to save battery & CPU
+          if (!video.paused) {
+            video.pause();
+          }
+        }
+      });
+    }, {
+      rootMargin: '100px 0px 100px 0px',
+      threshold: 0.15
+    });
+
+    lazyVideos.forEach(v => videoObserver.observe(v));
+  }
+
   /* ---------- 4. Animated Counters ---------- */
   const counters = document.querySelectorAll('[data-count]');
   if (counters.length) {
@@ -146,44 +183,150 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---------- 8. Form Validation ---------- */
+  /* ---------- 8. Form Validation & Real Submission Flow ---------- */
   const forms = document.querySelectorAll('form[data-validate]');
   forms.forEach(form => {
-    form.addEventListener('submit', (e) => {
+    // Helper to clear existing error messages
+    const clearErrors = () => {
+      form.querySelectorAll('.form-error-msg').forEach(msg => msg.remove());
+      form.querySelectorAll('.field-invalid').forEach(f => f.classList.remove('field-invalid'));
+    };
+
+    const showFieldError = (field, message) => {
+      field.classList.add('field-invalid');
+      // Check if error already exists
+      const parent = field.closest('.form-group, .quick-form-field') || field.parentElement;
+      let existingMsg = parent.querySelector('.form-error-msg');
+      if (!existingMsg) {
+        const errorSpan = document.createElement('span');
+        errorSpan.className = 'form-error-msg';
+        errorSpan.innerHTML = `<i class="fas fa-circle-exclamation"></i> ${message}`;
+        parent.appendChild(errorSpan);
+      }
+      field.addEventListener('input', () => {
+        field.classList.remove('field-invalid');
+        const err = parent.querySelector('.form-error-msg');
+        if (err) err.remove();
+      }, { once: true });
+    };
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      clearErrors();
+
+      // Find status alert container
+      let statusContainer = form.querySelector('.form-status-container');
+      if (!statusContainer) {
+        statusContainer = document.createElement('div');
+        statusContainer.className = 'form-status-container';
+        form.appendChild(statusContainer);
+      }
+      statusContainer.innerHTML = '';
+
       let valid = true;
+
+      // Required field validation
       form.querySelectorAll('[required]').forEach(field => {
         if (!field.value.trim()) {
           valid = false;
-          field.style.borderColor = '#e53e3e';
-          field.addEventListener('input', () => { field.style.borderColor = ''; }, { once: true });
+          showFieldError(field, 'This field is required');
         }
       });
+
       // Email validation
       const email = form.querySelector('input[type="email"]');
-      if (email && email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-        valid = false;
-        email.style.borderColor = '#e53e3e';
+      if (email && email.value.trim()) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value.trim())) {
+          valid = false;
+          showFieldError(email, 'Please enter a valid official email address');
+        }
       }
-      // Phone validation
+
+      // Phone validation (7 to 15 digits/symbols)
       const phone = form.querySelector('input[type="tel"]');
-      if (phone && phone.value && !/^[\d+\-\s()]{7,15}$/.test(phone.value)) {
-        valid = false;
-        phone.style.borderColor = '#e53e3e';
+      if (phone && phone.value.trim()) {
+        const cleanPhone = phone.value.replace(/[\s\-()+]/g, '');
+        if (cleanPhone.length < 7 || cleanPhone.length > 15 || !/^\d+$/.test(cleanPhone)) {
+          valid = false;
+          showFieldError(phone, 'Please enter a valid phone number (10 digits)');
+        }
       }
-      if (valid) {
-        // Show success message
-        const btn = form.querySelector('button[type="submit"]');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-check"></i> Submitted Successfully!';
-        btn.style.background = '#38a169';
-        btn.disabled = true;
-        setTimeout(() => {
-          btn.innerHTML = originalText;
-          btn.style.background = '';
-          btn.disabled = false;
+
+      if (!valid) {
+        const firstError = form.querySelector('.field-invalid');
+        if (firstError) {
+          firstError.focus();
+        }
+        return;
+      }
+
+      // SUBMITTING STATE
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnHtml = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.classList.add('btn-submitting');
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting Requirement...';
+
+      const endpoint = form.getAttribute('action') || 'https://formspree.io/f/mqaeekzz';
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // SUCCESS STATE
+          submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Sent Successfully!';
+          submitBtn.style.background = '#10b981';
+          submitBtn.style.borderColor = '#10b981';
+
+          statusContainer.innerHTML = `
+            <div class="form-status-alert alert-success">
+              <i class="fas fa-circle-check fa-lg"></i>
+              <div>
+                <strong>Thank you for your enquiry!</strong>
+                <p style="margin:4px 0 0; font-size:0.88rem; font-weight:400;">Our engineering team will review your structural requirements and issue an itemized estimate within 24 hours.</p>
+              </div>
+            </div>
+          `;
+
+          // Clear form inputs
           form.reset();
-        }, 3000);
+
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('btn-submitting');
+            submitBtn.innerHTML = originalBtnHtml;
+            submitBtn.style.background = '';
+            submitBtn.style.borderColor = '';
+          }, 5000);
+        } else {
+          // Server returned error
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error || 'Server error occurred during submission.');
+        }
+      } catch (error) {
+        // ERROR STATE (Preserve form inputs so user can retry)
+        console.error('Form submission error:', error);
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('btn-submitting');
+        submitBtn.innerHTML = '<i class="fas fa-rotate-right"></i> Retry Submission';
+
+        statusContainer.innerHTML = `
+          <div class="form-status-alert alert-error">
+            <i class="fas fa-circle-exclamation fa-lg"></i>
+            <div>
+              <strong>Submission Failed:</strong>
+              <p style="margin:4px 0 0; font-size:0.88rem; font-weight:400;">Unable to transmit your estimation request right now. Your data has been retained—please check your connection and click Retry, or call our desk directly at <a href="tel:+919512841105" style="text-decoration:underline; font-weight:700;">+91 95128 41105</a>.</p>
+            </div>
+          </div>
+        `;
       }
     });
   });

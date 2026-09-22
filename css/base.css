@@ -492,6 +492,41 @@ p { margin-bottom: 1rem; color: var(--text-light); }
   font-size: 0.95rem;
 }
 
+/* Hero Key Trust Metrics Strip */
+.hero-metrics-strip {
+  display: flex;
+  gap: 28px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  flex-wrap: wrap;
+}
+.hero-metric-item {
+  display: flex;
+  flex-direction: column;
+}
+.hero-metric-val {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--accent-light);
+  line-height: 1.1;
+  font-family: var(--font-heading);
+}
+.hero-metric-lbl {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 3px;
+}
+@media (max-width: 576px) {
+  .hero-metrics-strip {
+    gap: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 /* Hero Right Video Card */
 .hero-video-card-wrap {
   position: relative;
