@@ -267,7 +267,7 @@
 
 .desk-locations-grid .contact-info-item {
   margin: 0;
-  padding: 18px;
+  padding: 18px 16px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -282,6 +282,11 @@
 .desk-locations-grid .contact-info-item .info-body p {
   flex: 1;
   margin-bottom: 10px;
+}
+
+.desk-locations-grid .contact-info-item .info-link-row a {
+  white-space: nowrap;
+  letter-spacing: -0.01em;
 }
 
 .desk-locations-grid .contact-info-item:hover {
@@ -647,6 +652,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 .info-sep {
   color: rgba(255, 255, 255, 0.3);
@@ -656,15 +662,17 @@
   font-size: 0.74rem;
   color: rgba(255, 255, 255, 0.6);
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .contact-info-item .info-body a {
   color: #ffffff;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
   transition: color 0.2s ease;
 }
 .contact-info-item .info-body a:hover {
