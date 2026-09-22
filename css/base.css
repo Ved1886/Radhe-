@@ -1543,3 +1543,150 @@ p { margin-bottom: 1rem; color: var(--text-light); }
 
 /* Font Awesome fallback for pro icons */
 .fa-file-certificate::before { content: "\f573"; }
+
+/* ---------- Mobile Layout Guardrails ---------- */
+@media (max-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .container {
+    width: min(100%, 560px);
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .section,
+  .section-dark,
+  .section-gray {
+    overflow: hidden;
+  }
+
+  .section-title {
+    font-size: clamp(1.65rem, 7vw, 2.2rem);
+  }
+
+  .hero {
+    overflow: hidden;
+  }
+
+  .hero-content .section-label {
+    font-size: .72rem;
+    letter-spacing: 2px;
+    line-height: 1.5;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.9rem, 9vw, 2.55rem);
+    letter-spacing: 0;
+  }
+
+  .hero p {
+    font-size: .98rem;
+  }
+
+  .hero-video-card {
+    padding: 11px;
+    border-radius: 14px;
+  }
+
+  .hero-video-badge {
+    max-width: 100%;
+    font-size: .63rem;
+    line-height: 1.35;
+    white-space: normal;
+  }
+
+  .hero-video-caption {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .hero-video-caption-title {
+    font-size: .78rem;
+  }
+
+  .hero-video-caption-sub {
+    font-size: .63rem;
+  }
+
+  .hero-video-pill {
+    font-size: .67rem;
+    padding: 5px 8px;
+  }
+
+  .reveal-left,
+  .reveal-right {
+    transform: translateY(24px);
+  }
+
+  .reveal-left.visible,
+  .reveal-right.visible {
+    transform: translateY(0);
+  }
+
+  .advantage-card,
+  .workflow-step,
+  .video-card,
+  .testimonial-card {
+    min-width: 0;
+  }
+
+  .advantage-card {
+    padding: 22px 18px;
+  }
+
+  .marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .marquee-track {
+    max-width: none;
+  }
+
+  .footer {
+    overflow: hidden;
+  }
+
+  .footer-grid {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-menu {
+    width: min(300px, calc(100vw - 24px));
+  }
+
+  .hero {
+    padding-top: 96px;
+  }
+
+  .hero-btns,
+  .hero-btns .btn,
+  .cta-banner .btn {
+    width: 100%;
+  }
+
+  .hero-metric-val {
+    font-size: 1.3rem;
+  }
+
+  .hero-metric-lbl {
+    font-size: .66rem;
+    letter-spacing: .2px;
+  }
+
+  .cta-banner {
+    padding: 48px 0;
+  }
+
+  .cta-banner h2 {
+    font-size: 1.7rem;
+  }
+}

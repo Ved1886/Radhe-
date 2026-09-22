@@ -1386,3 +1386,17 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Keep component-owned desktop grids stacked on phones. */
+@media (max-width: 768px) {
+  .advantages-grid,
+  .workflow,
+  .projects-grid,
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .workflow {
+    gap: 28px;
+  }
+}
