@@ -281,55 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---------- 15. Tekla Blueprint vs Reality Comparison Slider ---------- */
-  const teklaSlider = document.getElementById('teklaSlider');
-  const sliderHandle = document.getElementById('sliderHandle');
-  if (teklaSlider && sliderHandle) {
-    let isDragging = false;
-
-    const setPosition = (clientX) => {
-      const rect = teklaSlider.getBoundingClientRect();
-      let pos = ((clientX - rect.left) / rect.width) * 100;
-      pos = Math.max(0, Math.min(100, pos));
-      teklaSlider.style.setProperty('--pos', `${pos}%`);
-    };
-
-    // Mouse events
-    sliderHandle.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      setPosition(e.clientX);
-    });
-    teklaSlider.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      setPosition(e.clientX);
-    });
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      setPosition(e.clientX);
-    });
-    window.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
-    // Touch events
-    sliderHandle.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      setPosition(e.touches[0].clientX);
-    }, { passive: true });
-    teklaSlider.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      setPosition(e.touches[0].clientX);
-    }, { passive: true });
-    window.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      setPosition(e.touches[0].clientX);
-    }, { passive: true });
-    window.addEventListener('touchend', () => {
-      isDragging = false;
-    });
-  }
-
-  /* ---------- 16. Radhe Structural Studio (Canvas & Live Estimator) ---------- */
+  /* ---------- 15. Radhe Structural Studio (Canvas & Live Estimator) ---------- */
   const canvas = document.getElementById('studioCanvas');
   const archetypeBtns = document.querySelectorAll('.archetype-btn');
   const spanRange = document.getElementById('spanRange');
