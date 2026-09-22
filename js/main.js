@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const video = entry.target;
+        const overlay = video.closest('.video-wrapper') && video.closest('.video-wrapper').querySelector('.video-play-overlay');
         if (entry.isIntersecting) {
           // Load video source if not loaded yet
           const source = video.querySelector('source[data-src]');
@@ -71,16 +72,21 @@ document.addEventListener('DOMContentLoaded', () => {
           // Attempt playback safely
           const playPromise = video.play();
           if (playPromise !== undefined) {
-            playPromise.catch(() => {
-              // Autoplay policy muted playback fallback
-              video.muted = true;
-            });
+            playPromise
+              .then(() => { if (overlay) overlay.classList.add('playing'); })
+              .catch(() => {
+                // Autoplay policy muted playback fallback
+                video.muted = true;
+                video.play().then(() => { if (overlay) overlay.classList.add('playing'); }).catch(() => {});
+              });
           }
         } else {
           // Pause when outside viewport to save battery & CPU
           if (!video.paused) {
             video.pause();
           }
+          // Re-show overlay when video is paused/out of view
+          if (overlay) overlay.classList.remove('playing');
         }
       });
     }, {
@@ -90,6 +96,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
     lazyVideos.forEach(v => videoObserver.observe(v));
   }
+
+  /* ---------- 3c. BIM Slider ↔ Number Input Bidirectional Sync ---------- */
+  const sliderNumPairs = [
+    { range: 'spanRange',   num: 'spanNumInput'   },
+    { range: 'lengthRange', num: 'lengthNumInput' },
+    { range: 'eaveRange',   num: 'eaveNumInput'   },
+  ];
+  sliderNumPairs.forEach(({ range, num }) => {
+    const rangeEl = document.getElementById(range);
+    const numEl   = document.getElementById(num);
+    if (!rangeEl || !numEl) return;
+    // Slider → number input
+    rangeEl.addEventListener('input', () => {
+      numEl.value = rangeEl.value;
+    });
+    // Number input → slider
+    numEl.addEventListener('input', () => {
+      const val = parseFloat(numEl.value);
+      const min = parseFloat(rangeEl.min);
+      const max = parseFloat(rangeEl.max);
+      if (!isNaN(val) && val >= min && val <= max) {
+        rangeEl.value = val;
+        rangeEl.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    });
+    numEl.addEventListener('change', () => {
+      // Clamp on blur/change to valid range
+      const val = parseFloat(numEl.value);
+      const min = parseFloat(rangeEl.min);
+      const max = parseFloat(rangeEl.max);
+      if (isNaN(val) || val < min) { numEl.value = min; rangeEl.value = min; }
+      else if (val > max)          { numEl.value = max; rangeEl.value = max; }
+      rangeEl.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
 
   /* ---------- 4. Animated Counters ---------- */
   const counters = document.querySelectorAll('[data-count]');

@@ -266,6 +266,49 @@
   font-family: 'Space Mono', monospace, monospace;
 }
 
+/* Slider row: range + number input side by side */
+.studio-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+.studio-slider-row .studio-range {
+  flex: 1 1 auto;
+}
+.studio-num-input {
+  width: 68px;
+  flex: 0 0 68px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(212, 168, 83, 0.4);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 6px 8px;
+  outline: none;
+  min-height: 44px; /* WCAG touch target */
+  -webkit-appearance: textfield;
+  appearance: textfield;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.studio-num-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.2);
+}
+.studio-num-input::-webkit-inner-spin-button,
+.studio-num-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.studio-num-unit {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  flex-shrink: 0;
+}
+
 /* Pill Selectors */
 .pill-selector {
   display: flex;
