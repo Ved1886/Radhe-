@@ -85,6 +85,23 @@ document.addEventListener('DOMContentLoaded', () => {
     counters.forEach(el => counterObs.observe(el));
   }
 
+  /* Animated Caliber Gauges */
+  const caliberGauges = document.querySelectorAll('[data-gauge]');
+  if (caliberGauges.length) {
+    const gaugeObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const targetWidth = entry.target.dataset.gauge + '%';
+          setTimeout(() => {
+            entry.target.style.width = targetWidth;
+          }, 200);
+          gaugeObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    caliberGauges.forEach(el => gaugeObs.observe(el));
+  }
+
   /* ---------- 5. Project Filter ---------- */
   const filterTabs = document.querySelectorAll('.filter-tab');
   const projectCards = document.querySelectorAll('.project-card');
@@ -258,14 +275,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
-  /* ---------- 14. Autoplay Loop Videos when in view ---------- */
-  const loopVideos = document.querySelectorAll('video[autoplay]');
-  if (loopVideos.length) {
+  /* ---------- 14. Autoplay Loop Videos (Muted, No Controls) ---------- */
+  const siteVideos = document.querySelectorAll('video');
+  if (siteVideos.length) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const vid = entry.target;
         if (entry.isIntersecting) {
           vid.muted = true;
+          vid.volume = 0;
           const playPromise = vid.play();
           if (playPromise !== undefined) {
             playPromise.catch(() => {});
@@ -274,9 +292,13 @@ document.addEventListener('DOMContentLoaded', () => {
           vid.pause();
         }
       });
-    }, { threshold: 0.2 });
-    loopVideos.forEach(vid => {
+    }, { threshold: 0.15 });
+
+    siteVideos.forEach(vid => {
       vid.muted = true;
+      vid.defaultMuted = true;
+      vid.volume = 0;
+      vid.removeAttribute('controls');
       videoObserver.observe(vid);
     });
   }
@@ -296,9 +318,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const eaveValBadge = document.getElementById('eaveValBadge');
   const hudDimSummary = document.getElementById('hudDimSummary');
   const calcArea = document.getElementById('calcArea');
+  const calcAreaM2 = document.getElementById('calcAreaM2');
   const calcSteel = document.getElementById('calcSteel');
   const calcDays = document.getElementById('calcDays');
   const btnApplySpecs = document.getElementById('btnApplySpecs');
+  const btnExportBlueprint = document.getElementById('btnExportBlueprint');
+  const btnResetStudio = document.getElementById('btnResetStudio');
+  const hudModeBtns = document.querySelectorAll('.hud-mode-btn');
 
   // Quote Form elements
   const quoteLength = document.getElementById('quoteLength');
@@ -312,6 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (canvas && spanRange && lengthRange && eaveRange) {
     let state = {
       type: 'peb', // 'peb' | 'round' | 'crane'
+      mode: '2d', // '2d' | '3d'
       span: 36,
       length: 75,
       eave: 9.5,
@@ -335,20 +362,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', resizeCanvas);
 
-    // Render Canvas
-    const render = () => {
-      if (!canvas.parentElement) return;
-      const w = canvas.parentElement.clientWidth;
-      const h = canvas.parentElement.clientHeight;
-      ctx.clearRect(0, 0, w, h);
-
+    // ==========================================
+    // 2D ELEVATION RENDERER
+    // ==========================================
+    const render2D = (w, h) => {
       // Margin & scale
-      const marginX = 80;
+      const marginX = 85;
       const groundY = h - 65;
       const availableW = w - marginX * 2;
       const availableH = groundY - 70;
 
-      // Scale factor mapping span (15-60m) and height (6-18m)
+      // Scale factors
       const scaleX = (availableW * 0.85) / 60;
       const scaleY = (availableH * 0.88) / 18;
 
@@ -363,8 +387,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const eaveY = groundY - frameHeight;
       const apexY = groundY - totalHeight;
 
+      // Title & Standard Watermark
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
+      ctx.font = 'bold 9px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText('> RADHE CAD ELEVATION: IS 800:2007 (LSM) PORTAL FRAME', 16, 22);
+
       // Ground Line
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(25, groundY);
@@ -382,9 +412,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Concrete Pedestals & Base Plates
-      const pedW = 28;
-      const pedH = 16;
-      ctx.fillStyle = '#1e293b';
+      const pedW = 32;
+      const pedH = 18;
+      ctx.fillStyle = '#111e33';
       ctx.strokeStyle = '#38bdf8';
       ctx.lineWidth = 1.5;
 
@@ -395,23 +425,25 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fillRect(endX - pedW / 2, groundY, pedW, pedH);
       ctx.strokeRect(endX - pedW / 2, groundY, pedW, pedH);
 
-      // Base plate bolts
+      // Base plate steel slab & anchor bolts
       ctx.fillStyle = '#d4a853';
+      ctx.fillRect(startX - 14, groundY - 3, 28, 4);
+      ctx.fillRect(endX - 14, groundY - 3, 28, 4);
       ctx.beginPath();
-      ctx.arc(startX - 6, groundY + 2, 2.5, 0, Math.PI * 2);
-      ctx.arc(startX + 6, groundY + 2, 2.5, 0, Math.PI * 2);
-      ctx.arc(endX - 6, groundY + 2, 2.5, 0, Math.PI * 2);
-      ctx.arc(endX + 6, groundY + 2, 2.5, 0, Math.PI * 2);
+      ctx.arc(startX - 8, groundY + 5, 2.5, 0, Math.PI * 2);
+      ctx.arc(startX + 8, groundY + 5, 2.5, 0, Math.PI * 2);
+      ctx.arc(endX - 8, groundY + 5, 2.5, 0, Math.PI * 2);
+      ctx.arc(endX + 8, groundY + 5, 2.5, 0, Math.PI * 2);
       ctx.fill();
 
       // Structural Columns & Rafters
       ctx.strokeStyle = '#38bdf8';
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 2.5;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
 
       if (state.type === 'round') {
-        // --- Curved Round Roof (Truss Arch like Keshar / Panoli) ---
+        // --- Curved Round Roof (Truss Arch) ---
         ctx.beginPath();
         ctx.moveTo(startX, groundY);
         ctx.lineTo(startX, eaveY);
@@ -425,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Top curved chord
         ctx.beginPath();
         ctx.moveTo(startX, eaveY);
-        ctx.quadraticCurveTo(midX, apexY - 6, endX, eaveY);
+        ctx.quadraticCurveTo(midX, apexY - 8, endX, eaveY);
         ctx.stroke();
 
         // Bottom curved tie chord
@@ -436,45 +468,45 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.strokeStyle = 'rgba(56, 189, 248, 0.7)';
         ctx.stroke();
 
-        // Truss web lattice (diagonal struts)
-        ctx.strokeStyle = 'rgba(212, 168, 83, 0.55)';
+        // Truss web lattice
+        ctx.strokeStyle = 'rgba(212, 168, 83, 0.6)';
         ctx.lineWidth = 1.2;
-        const webSteps = 14;
+        const webSteps = 16;
         for (let i = 1; i < webSteps; i++) {
           const t = i / webSteps;
           const topX = (1 - t) * (1 - t) * startX + 2 * (1 - t) * t * midX + t * t * endX;
-          const topY = (1 - t) * (1 - t) * eaveY + 2 * (1 - t) * t * (apexY - 6) + t * t * eaveY;
+          const topY = (1 - t) * (1 - t) * eaveY + 2 * (1 - t) * t * (apexY - 8) + t * t * eaveY;
           const botY = (1 - t) * (1 - t) * (eaveY + tieOffset * 0.4) + 2 * (1 - t) * t * (apexY + tieOffset) + t * t * (eaveY + tieOffset * 0.4);
 
           ctx.beginPath();
           ctx.moveTo(topX, topY);
-          ctx.lineTo(topX + (i % 2 === 0 ? 8 : -8), botY);
+          ctx.lineTo(topX + (i % 2 === 0 ? 9 : -9), botY);
           ctx.stroke();
         }
       } else {
         // --- PEB / Heavy Crane Rigid Portal Frame (Tapered) ---
         const haunchDepth = 16;
-        const apexDepth = 8;
+        const apexDepth = 9;
 
         // Left Tapered Column
         ctx.beginPath();
-        ctx.moveTo(startX - 4, groundY);
+        ctx.moveTo(startX - 4, groundY - 3);
         ctx.lineTo(startX - haunchDepth, eaveY);
         ctx.lineTo(startX, eaveY);
-        ctx.lineTo(startX + 4, groundY);
+        ctx.lineTo(startX + 4, groundY - 3);
         ctx.closePath();
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.1)';
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.12)';
         ctx.fill();
         ctx.stroke();
 
         // Right Tapered Column
         ctx.beginPath();
-        ctx.moveTo(endX + 4, groundY);
+        ctx.moveTo(endX + 4, groundY - 3);
         ctx.lineTo(endX + haunchDepth, eaveY);
         ctx.lineTo(endX, eaveY);
-        ctx.lineTo(endX - 4, groundY);
+        ctx.lineTo(endX - 4, groundY - 3);
         ctx.closePath();
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.1)';
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.12)';
         ctx.fill();
         ctx.stroke();
 
@@ -485,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.lineTo(midX, apexY + apexDepth);
         ctx.lineTo(startX, eaveY + haunchDepth);
         ctx.closePath();
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.12)';
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.14)';
         ctx.fill();
         ctx.stroke();
 
@@ -496,8 +528,16 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.lineTo(midX, apexY + apexDepth);
         ctx.lineTo(endX, eaveY + haunchDepth);
         ctx.closePath();
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.12)';
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.14)';
         ctx.fill();
+        ctx.stroke();
+
+        // Apex Splice Plate
+        ctx.strokeStyle = '#d4a853';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(midX, apexY - 2);
+        ctx.lineTo(midX, apexY + apexDepth + 2);
         ctx.stroke();
 
         // Purlin clips / cleats on roof
@@ -537,28 +577,29 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.stroke();
 
         // Crane Trolley & Hoist Hook
-        const trolleyX = midX - 30;
+        const trolleyX = midX - 25;
         ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(trolleyX - 10, craneBracketY - 4, 20, 8);
+        ctx.fillRect(trolleyX - 12, craneBracketY - 4, 24, 8);
 
         // Cable & Hook
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
         ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(trolleyX, craneBracketY + 4);
-        ctx.lineTo(trolleyX, craneBracketY + 22);
+        ctx.lineTo(trolleyX, craneBracketY + 24);
         ctx.stroke();
 
         // Hook
         ctx.strokeStyle = '#d4a853';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.beginPath();
-        ctx.arc(trolleyX, craneBracketY + 26, 4, 0, Math.PI);
+        ctx.arc(trolleyX, craneBracketY + 28, 4.5, 0, Math.PI);
         ctx.stroke();
 
         // Crane Load Label
         ctx.fillStyle = '#fef08a';
         ctx.font = 'bold 9px monospace';
+        ctx.textAlign = 'left';
         ctx.fillText(`EOT CRANE ${state.crane} MT`, bridgeX1 + 10, craneBracketY - 6);
       }
 
@@ -571,11 +612,11 @@ document.addEventListener('DOMContentLoaded', () => {
       pulseNodes.forEach(node => {
         ctx.fillStyle = '#d4a853';
         ctx.beginPath();
-        ctx.arc(node.x, node.y, 4, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, 4.5, 0, Math.PI * 2);
         ctx.fill();
         ctx.strokeStyle = 'rgba(212, 168, 83, 0.4)';
         ctx.beginPath();
-        ctx.arc(node.x, node.y, 8, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, 9, 0, Math.PI * 2);
         ctx.stroke();
       });
 
@@ -628,6 +669,219 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.restore();
     };
 
+    // ==========================================
+    // 3D AXONOMETRIC BIM WIREFRAME RENDERER
+    // ==========================================
+    const render3D = (w, h) => {
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.45)';
+      ctx.font = 'bold 9px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText('> RADHE 3D AXONOMETRIC BIM WIREFRAME [ISOMETRIC PROJECTION]', 16, 22);
+
+      const centerX = w * 0.5;
+      const centerY = h * 0.65;
+      const scale = Math.min(w / 140, h / 75);
+
+      const iso = (x, y, z) => {
+        // x: width (-span/2 to +span/2)
+        // y: height (0 ground upward)
+        // z: length (0 to length)
+        const cos30 = 0.866;
+        const sin30 = 0.5;
+        const px = centerX + (x * cos30 - (z - state.length * 0.5) * cos30) * scale * 0.7;
+        const py = centerY - (y * scale * 0.9) + (x * sin30 + (z - state.length * 0.5) * sin30) * scale * 0.45;
+        return { x: px, y: py };
+      };
+
+      const halfSpan = state.span * 0.5;
+      const apexExtra = state.type === 'round' ? state.span * 0.22 : state.span * 0.1;
+      const apexH = state.eave + apexExtra;
+      const numBays = Math.min(10, Math.max(4, Math.round(state.length / 9)));
+
+      // Draw ground foundation slab
+      const slab0 = iso(-halfSpan - 1, 0, 0);
+      const slab1 = iso(halfSpan + 1, 0, 0);
+      const slab2 = iso(halfSpan + 1, 0, state.length);
+      const slab3 = iso(-halfSpan - 1, 0, state.length);
+
+      ctx.fillStyle = 'rgba(15, 28, 50, 0.6)';
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(slab0.x, slab0.y);
+      ctx.lineTo(slab1.x, slab1.y);
+      ctx.lineTo(slab2.x, slab2.y);
+      ctx.lineTo(slab3.x, slab3.y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Draw all portal frames from back to front
+      const framePoints = [];
+      for (let b = 0; b <= numBays; b++) {
+        const z = (b / numBays) * state.length;
+        const colL = iso(-halfSpan, 0, z);
+        const eaveL = iso(-halfSpan, state.eave, z);
+        const apexP = iso(0, apexH, z);
+        const eaveR = iso(halfSpan, state.eave, z);
+        const colR = iso(halfSpan, 0, z);
+
+        framePoints.push({ colL, eaveL, apexP, eaveR, colR, z });
+
+        const isGable = (b === 0 || b === numBays);
+        ctx.strokeStyle = isGable ? '#38bdf8' : 'rgba(56, 189, 248, 0.4)';
+        ctx.lineWidth = isGable ? 2 : 1.2;
+
+        ctx.beginPath();
+        ctx.moveTo(colL.x, colL.y);
+        ctx.lineTo(eaveL.x, eaveL.y);
+        ctx.lineTo(apexP.x, apexP.y);
+        ctx.lineTo(eaveR.x, eaveR.y);
+        ctx.lineTo(colR.x, colR.y);
+        ctx.stroke();
+
+        // Pedestal dots
+        ctx.fillStyle = '#d4a853';
+        ctx.beginPath();
+        ctx.arc(colL.x, colL.y, 2.5, 0, Math.PI * 2);
+        ctx.arc(colR.x, colR.y, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Longitudinal Connecting Lines (Purlins, Ridge, Eaves)
+      // 1. Ridge Beam
+      ctx.strokeStyle = '#d4a853';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(framePoints[0].apexP.x, framePoints[0].apexP.y);
+      for (let b = 1; b <= numBays; b++) {
+        ctx.lineTo(framePoints[b].apexP.x, framePoints[b].apexP.y);
+      }
+      ctx.stroke();
+
+      // 2. Left & Right Eave Struts
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.8)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(framePoints[0].eaveL.x, framePoints[0].eaveL.y);
+      for (let b = 1; b <= numBays; b++) {
+        ctx.lineTo(framePoints[b].eaveL.x, framePoints[b].eaveL.y);
+      }
+      ctx.moveTo(framePoints[0].eaveR.x, framePoints[0].eaveR.y);
+      for (let b = 1; b <= numBays; b++) {
+        ctx.lineTo(framePoints[b].eaveR.x, framePoints[b].eaveR.y);
+      }
+      ctx.stroke();
+
+      // 3. Intermediate Roof Purlins
+      ctx.strokeStyle = 'rgba(212, 168, 83, 0.35)';
+      ctx.lineWidth = 1;
+      [0.33, 0.66].forEach(ratio => {
+        ctx.beginPath();
+        for (let b = 0; b <= numBays; b++) {
+          const z = (b / numBays) * state.length;
+          const pL = iso(-halfSpan + halfSpan * ratio, state.eave + apexExtra * ratio, z);
+          if (b === 0) ctx.moveTo(pL.x, pL.y);
+          else ctx.lineTo(pL.x, pL.y);
+        }
+        ctx.stroke();
+
+        ctx.beginPath();
+        for (let b = 0; b <= numBays; b++) {
+          const z = (b / numBays) * state.length;
+          const pR = iso(halfSpan - halfSpan * ratio, state.eave + apexExtra * ratio, z);
+          if (b === 0) ctx.moveTo(pR.x, pR.y);
+          else ctx.lineTo(pR.x, pR.y);
+        }
+        ctx.stroke();
+      });
+
+      // 4. Crane Runway Girder in 3D (if crane > 0)
+      if (state.crane > 0) {
+        const craneH = state.eave * 0.65;
+        ctx.strokeStyle = '#eab308';
+        ctx.lineWidth = 2.5;
+
+        // Left crane runway
+        ctx.beginPath();
+        for (let b = 0; b <= numBays; b++) {
+          const z = (b / numBays) * state.length;
+          const cpL = iso(-halfSpan + 1.2, craneH, z);
+          if (b === 0) ctx.moveTo(cpL.x, cpL.y);
+          else ctx.lineTo(cpL.x, cpL.y);
+        }
+        ctx.stroke();
+
+        // Right crane runway
+        ctx.beginPath();
+        for (let b = 0; b <= numBays; b++) {
+          const z = (b / numBays) * state.length;
+          const cpR = iso(halfSpan - 1.2, craneH, z);
+          if (b === 0) ctx.moveTo(cpR.x, cpR.y);
+          else ctx.lineTo(cpR.x, cpR.y);
+        }
+        ctx.stroke();
+      }
+
+      // 5. Portal End-Bay X-Bracing
+      ctx.strokeStyle = 'rgba(212, 168, 83, 0.5)';
+      ctx.lineWidth = 1;
+      const b0 = framePoints[0];
+      const b1 = framePoints[1];
+      ctx.beginPath();
+      // Left wall X-brace
+      ctx.moveTo(b0.colL.x, b0.colL.y); ctx.lineTo(b1.eaveL.x, b1.eaveL.y);
+      ctx.moveTo(b1.colL.x, b1.colL.y); ctx.lineTo(b0.eaveL.x, b0.eaveL.y);
+      // Right wall X-brace
+      ctx.moveTo(b0.colR.x, b0.colR.y); ctx.lineTo(b1.eaveR.x, b1.eaveR.y);
+      ctx.moveTo(b1.colR.x, b1.colR.y); ctx.lineTo(b0.eaveR.x, b0.eaveR.y);
+      // Roof X-brace left
+      ctx.moveTo(b0.eaveL.x, b0.eaveL.y); ctx.lineTo(b1.apexP.x, b1.apexP.y);
+      ctx.moveTo(b1.eaveL.x, b1.eaveL.y); ctx.lineTo(b0.apexP.x, b0.apexP.y);
+      ctx.stroke();
+
+      // 3D Dimension Annotation Labels
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = 'bold 10px monospace';
+      ctx.textAlign = 'center';
+      const frontCenter = iso(0, -1, 0);
+      ctx.fillText(`SPAN: ${state.span.toFixed(1)}m`, frontCenter.x, frontCenter.y + 12);
+
+      const sideCenter = iso(halfSpan + 3, -1, state.length * 0.5);
+      ctx.fillText(`LENGTH: ${state.length.toFixed(1)}m (${numBays} BAYS)`, sideCenter.x, sideCenter.y + 12);
+
+      // Coordinate Axis Gizmo in bottom left
+      const gizmoX = 42;
+      const gizmoY = h - 35;
+      ctx.lineWidth = 2;
+      // X axis (Span)
+      ctx.strokeStyle = '#ef4444';
+      ctx.beginPath(); ctx.moveTo(gizmoX, gizmoY); ctx.lineTo(gizmoX + 22, gizmoY + 8); ctx.stroke();
+      ctx.fillStyle = '#ef4444'; ctx.font = 'bold 8px monospace'; ctx.fillText('X', gizmoX + 26, gizmoY + 11);
+      // Y axis (Height)
+      ctx.strokeStyle = '#22c55e';
+      ctx.beginPath(); ctx.moveTo(gizmoX, gizmoY); ctx.lineTo(gizmoX, gizmoY - 22); ctx.stroke();
+      ctx.fillStyle = '#22c55e'; ctx.fillText('Y', gizmoX - 2, gizmoY - 25);
+      // Z axis (Length)
+      ctx.strokeStyle = '#38bdf8';
+      ctx.beginPath(); ctx.moveTo(gizmoX, gizmoY); ctx.lineTo(gizmoX - 20, gizmoY + 8); ctx.stroke();
+      ctx.fillStyle = '#38bdf8'; ctx.fillText('Z', gizmoX - 24, gizmoY + 11);
+    };
+
+    // Master Render Dispatcher
+    const render = () => {
+      if (!canvas.parentElement) return;
+      const w = canvas.parentElement.clientWidth;
+      const h = canvas.parentElement.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      if (state.mode === '3d') {
+        render3D(w, h);
+      } else {
+        render2D(w, h);
+      }
+    };
+
     // Calculation & UI Update
     const updateCalculations = () => {
       const areaM2 = state.span * state.length;
@@ -649,6 +903,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Update KPI metrics
       calcArea.textContent = Math.round(areaSqFt).toLocaleString();
+      if (calcAreaM2) calcAreaM2.textContent = `~${Math.round(areaM2).toLocaleString()} m² Ground Area`;
       calcSteel.textContent = `~${Math.round(steelMT)}`;
       calcDays.textContent = `~${days}`;
 
@@ -713,6 +968,54 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCalculations();
       });
     });
+
+    // Viewport HUD Mode Selector (2D Section vs 3D Axonometric BIM)
+    hudModeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        hudModeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.mode = btn.dataset.mode || '2d';
+        render();
+      });
+    });
+
+    // Blueprint PNG Export
+    if (btnExportBlueprint) {
+      btnExportBlueprint.addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.download = `radhe-structural-blueprint-${state.type}-${state.span}x${state.length}m-${state.mode}.png`;
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    }
+
+    // Reset Studio Configuration
+    if (btnResetStudio) {
+      btnResetStudio.addEventListener('click', () => {
+        state = {
+          type: 'peb',
+          mode: '2d',
+          span: 36,
+          length: 75,
+          eave: 9.5,
+          crane: 10,
+          cladding: 'standing-seam'
+        };
+
+        spanRange.value = 36;
+        lengthRange.value = 75;
+        eaveRange.value = 9.5;
+
+        archetypeBtns.forEach(b => b.classList.toggle('active', b.dataset.type === 'peb'));
+        craneBtns.forEach(b => b.classList.toggle('active', b.dataset.crane === '10'));
+        claddingBtns.forEach(b => b.classList.toggle('active', b.dataset.cladding === 'standing-seam'));
+        hudModeBtns.forEach(b => b.classList.toggle('active', b.dataset.mode === '2d'));
+
+        updateCalculations();
+      });
+    }
 
     // Apply Specs Button (Smooth scroll & highlight form)
     if (btnApplySpecs && quoteLength) {
